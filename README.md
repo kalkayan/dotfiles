@@ -15,10 +15,12 @@ Just to show you the gist of what this repository will achieve, below is how my 
 
 ### To start using these dotfiles
 
-If you want to give this a try, first fork the repository, **review the files and code** and **remove code that you don't need**. 
+If you want to give this a try, first fork the repository, **review the files and code** and **remove code that you don't need** ([see - Reviewing & editing code ]()).
 
 :warning: | Don't blindly use these settings unless you know what that entails.
 :---: | :---
+
+This repository container an bash script (`setup`) to install all the language supports (compilers and interpreters) and other tools & app via brew, not only this, the git repository can also act as a dotfiles manager if followed the instructions below.
 
 **Managing & tracking [dot]files**
 
@@ -42,11 +44,46 @@ dotfiles status
 
 # to add a file 
 dotfiles add .tmux.conf
+
+# push new files or changes to the github
+dotfiles push origin main
 ```
 
 The cool thing about managing dotfiles with a git repo is that we can have multiple versions of our configs, and we can also create profiles with `branch`.
 
-**Recommended Reading**: [Tracking dotfiles with git]()
+```bash
+# Manage multiple profiles using git branch
+# branch out to your work env 
+dotfiles checkout work # or any other branch name
+```
+
+> Recommended Reading: [Tracking dotfiles with git]()
+
+**For first time installation**
+
+if you wish to automate the installation of libraries & apps and other tooling, open the `setup` file and update the code according to your needs.
+
+```bash
+# Brew casks and binaries that needs to be installed
+bins = (
+    "nvm"
+    "php"
+    "composer"
+    # more valid brew formula here
+)
+
+casks=(
+    "slack"
+    # add brew casks that you need 
+)
+```
+
+After updating the `setup` file, run the following in the terminal to install:
+```bash
+./setup
+```
+
+voila! you are all set with just two commands
 
 ### To start contributing to dotfiles
 
