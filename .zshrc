@@ -8,9 +8,6 @@ done;
 unset file;
 
 PROMPT='%F{208}%n%f in %F{226}%~%f > '
-
-# remove duplicates from the path
-export PATH=`awk -F: '{for(i=1;i<=NF;i++){if(!($i in a)){a[$i];printf s$i;s=":"}}}'<<<$PATH`;
  
 # Conda
 # >>> conda init >>>
@@ -32,5 +29,5 @@ unset __conda_setup
 # tmux autostart 
 if [ -z $TMUX ]; then; tmux; fi
 
+# FZF configs
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/opt/flex/bin:$PATH"
