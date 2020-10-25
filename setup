@@ -1,0 +1,85 @@
+#!/bin/zsh
+
+PHP_REQ=7.4
+
+# Brew casks that needs to be installed
+casks=(
+    "firefox"
+    "adobe-acrobat-reader"
+    "whatsapp"
+    "postman"
+    "dbngin"
+    "visual-studio-code"
+    "slack"
+    "discord"
+)
+
+# =============================================================================
+# Language support - Compilers and Interpreters
+# =============================================================================
+# The first thing for the setup is to get the necessary language support, i.e.,
+# all the compilers and interpreters binaries, apples comes with a get utility 
+# called xcode-select (xcode command line tools) that has most of the compilers
+# below will check xcode command line tools is present or not, else install it.
+# =============================================================================
+if xcode-select -p 1>/dev/null 
+    then echo "xcode-command line tools already installed"
+    else xcode-select --install
+fi 
+
+# =============================================================================
+# System Package Manger - Homebrew
+# =============================================================================
+# The installation of libraries and apps should be simple and automated, 
+# Homebrew - The Missing Package Manager for MacOS is one popular choic. 
+# =============================================================================
+if brew -h 1>/dev/null
+    then echo "Brew.sh already installed."
+    else echo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi 
+
+# =============================================================================
+# Install the other language support
+# =============================================================================
+# Although xcode-select will provide you most of the libraries and language 
+# support, but it maybe the case that it didn’t come with the lanugage of your 
+# liking (example-  Nodejs), or it may install an older version (example - php)
+# =============================================================================
+
+# PHP 
+PHP_VERSION=$(php -v | tail -r | tail -n 1 | cut -d " " -f 2 | cut -c 1-3)
+if [[ $PHP_VERSION == $PHP_REQ ]]
+    then echo "php@${PHP_REQ} already installed."
+    else brew install php@"${PHP_VERSION}"
+fi
+
+# Composer
+if brew list --formula | grep composer 1>/dev/null
+    then echo "Composer already installed."
+    else brew install composer
+fi 
+
+# Node Version Manager - NVM
+if brew list --formula | grep nvm 1>/dev/null
+    then echo "nvm already installed"
+    else brew install nvm
+fi
+
+[ ! -d ~/.nvm ] && mkdir ~/.nvm
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+
+# Nodejs, NPM, and Yarn 
+nvm install --lts
+npm i -g npm
+npm i -g npm yarn
+
+
+
+
+
+
+
+
+
+
+

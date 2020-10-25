@@ -31,3 +31,4 @@ if [ -z $TMUX ]; then; tmux; fi
 
 # FZF configs
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
