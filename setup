@@ -81,10 +81,12 @@ done
 # where you need to manually register some post-installation command.
 # =============================================================================
 
-# Node Version Manager - NVM
+# Post-Installation for Node Version Manager (NVM)
 if [[ " ${bins[@]} " =~ " nvm " ]]; then
     [ ! -d ~/.nvm ] && mkdir ~/.nvm
+    # source the nvm.sh file to add nvm in path
     [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+    # Install lts support for nodejs, yarn and update npm
     nvm install --lts
     npm install -g npm yarn 
 fi

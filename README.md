@@ -4,48 +4,47 @@
 
 ### Hades's Dotfiles 
 
-I primarily use a 13' Macbook pro (named hades) for coding, this repository is the collection of configurations that I learned over time, I have also covered a in-depth tutorial for all these configuration.
+There is something fascinating about customizing your operating system through dotfiles, and there are tons of articles on what you can do with these dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work. I primarily use a 13' Macbook pro (named hades) for coding; therefore, this repository mainly applies to macOS, but Improvements or contributions are more than welcome. 
 
-This repository is mainly applies to MacOS or Linux and improvements and contributions for other platforms are more then welcome, feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com).
+Feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/manishsahani).
 
 
 ### To start using these dotfiles
 
-If you want to give this a try, first fork the repository, **review the files and code** and **remove code that you don't need**. 
+If you want to give this a try, first fork the repository, **review the files and code**, and **remove code that you don't need**.
 <!-- ([see - Reviewing & editing code ]()). -->
 
 > :warning: Don't blindly use these settings unless you know what that entails.
 
-This repository container a bash script (`setup`) to automate the installation of all the binaries and brew casks, not only this, the repository also act as a dotfiles manager if followed the instructions below.
+This repository container a bash script (`setup`) to automate the installation of all the binaries and brew casks; not only this but the repository also act as a dotfiles manager if followed the instructions below.
 
 #### Managing & tracking [dot]files
 
-The trick to manage these dotfiles is by creating a `bare` git repository. To use this repository clone this as a `--bare` repository and just source the `.zshrc`, run the following command in the terminal:
+The trick to managing these dotfiles is by creating a [bare](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-init) git repository. To use this repository, clone this with `--bare` option and source the `.zshrc`, run the following command in the terminal:
 
 ```bash
-# after forking replace <username> with your username handle
+# after forking replace the <username> with your github handle
 git clone --bare https://github.com/<username>/dotfiles.git $HOME/.dotfiles
 ````
 
-To use a `bare` repository, we need to define the following
-- `--work-tree` - this can be your home directory i.e., `$HOME` or `~`) 
-- `--git-dir` - where the repository is cloned - `$HOME/.dotfiles` 
+Bare repository are special in a way that they omit working directory, therefore to use a bare repository, first we need to define the following.
 
-so the command to use the repository will be of the following structure
+- `--work-tree` - this can be your home directory, i.e., `$HOME` or `~`)
+- `--git-dir` - where the repository is cloned - `$HOME/.dotfiles`
+
+Therefore the command to use the repository will have a prefix `git --git-dir=$HOME/.dotfiles --work-tree=$HOME `, for ex -
 ```bash
-git --git-dir=$HOME/.dotfiles --work-tree=$HOME [command] [option]
-
 # example - to check the logs 
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME log
 ```
 
-For our convenience we can create an alias for this, stick the following line (if not already present) in `.zshrc` or `.aliases`.
+For our convenience we can create an alias for this command, stick the following line (if not already present) in `.aliases` or `.zshrc`.
 
 ```bash
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
 ``` 
 
-At this point all the files are being tracked, and we can easily use this `--bare` repository just by running `dotfiles`, ex :-
+At this point, all your configuration files are being tracked, and we can easily use the newly registered `dotfiles` command to manage the repository, ex :-
 
 ```bash
 # to check the status of the tracked and untracked files 
@@ -58,7 +57,7 @@ dotfiles commit .tmux.conf -m ".tmux.conf added"
 dotfiles push origin main
 ```
 
-> :warning: The `dotfiles status` will show all the untracked files to disable this behavior do the following
+> :warning: The `dotfiles status` will show all the untracked files to disable this behavior, do the following
 
 ```bash 
 # to remove the untracked directories and files from the listing
@@ -71,18 +70,22 @@ dotfiles config --local status.showUntrackedFiles no
 - we can also create profiles with `git branch`.
 
 ```bash
-# Manage multiple profiles - checkout out to the work profile 
+# Manage multiple profiles - check out to the work profile 
 dotfiles checkout work # or any other branch name
 ```
 
-> :heavy_exclamation_mark:  Recommended Reading: [Tracking dotfiles with git](https://www.atlassian.com/git/tutorials/dotfiles)
+Recommended Reading: [The best way to store your dotfiles: A bare Git repository ](https://www.atlassian.com/git/tutorials/dotfiles)
 
-#### Automated installation
+#### Automated installation 
 
-The installation of apps, libraries and other tools are automated, open the `setup` file and update the following code according to your needs.
+
+
+The installation of apps, libraries, and other tools are automated, open the `setup` file and update the following code according to your needs.
+
+> if you are on other platforms then macOS, you can create similar `bash`/`batch` files and make use of `apt-get` or `winget`
 
 ```bash
-# Brew casks and binaries that needs to be installed
+# Brew casks and binaries that you need
 bins = (
     "nvm"
     "php@7.4"
@@ -92,11 +95,12 @@ bins = (
 
 casks=(
     "slack"
+    "postman"
     # add brew casks that you need 
 )
 ```
 
-> :exclamation: you may need to add some post-installation code in the later part of scripts, please see the library installation page for the steps
+> :exclamation: you may need to add some post-installation code in the later part of scripts. Please see the library installation page for the steps
 
 After updating the `setup` file, just run the file in the terminal to install:
 ```bash
