@@ -11,25 +11,27 @@ This repository is mainly applies to MacOS or Linux and improvements and contrib
 
 ### To start using these dotfiles
 
-If you want to give this a try, first fork the repository, **review the files and code** and **remove code that you don't need** ([see - Reviewing & editing code ]()).
+If you want to give this a try, first fork the repository, **review the files and code** and **remove code that you don't need**. 
+<!-- ([see - Reviewing & editing code ]()). -->
 
 > :warning: Don't blindly use these settings unless you know what that entails.
 
 This repository container a bash script (`setup`) to automate the installation of all the binaries and brew casks, not only this, the repository also act as a dotfiles manager if followed the instructions below.
 
-**Managing & tracking [dot]files**
+#### Managing & tracking [dot]files
 
-The trick to manage these dotfiles is by creating a `bare` git repository ([read - Tracking dotfiles with git]()). To use this repository clone this as a `--bare` repository and just source the `.zshrc`, run the following command in the terminal:
+The trick to manage these dotfiles is by creating a `bare` git repository. To use this repository clone this as a `--bare` repository and just source the `.zshrc`, run the following command in the terminal:
 
 ```bash
 # after forking replace <username> with your username handle
-git clone --bare git@github.com:<username>/dotfiles.git $HOME/.dotfiles
-
-# you can also clone via https
 git clone --bare https://github.com/<username>/dotfiles.git $HOME/.dotfiles
 ````
 
-To use this `--bare` repository, we need to define the `--work-tree` (this can be your home directory i.e., `$HOME`) and `--git-dir` (where the repository is cloned - `$HOME/.dotfiles`), so the command to use the repository will be
+To use a `bare` repository, we need to define the following
+- `--work-tree` - this can be your home directory i.e., `$HOME` or `~`) 
+- `--git-dir` - where the repository is cloned - `$HOME/.dotfiles` 
+
+so the command to use the repository will be of the following structure
 ```bash
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME [command] [option]
 
@@ -50,21 +52,21 @@ At this point all the files are being tracked, and we can easily use this `--bar
 dotfiles status
 
 # to add a file 
-dotfiles add .tmux.conf
+dotfiles commit .tmux.conf -m ".tmux.conf added"
 
 # push new files or changes to the github
 dotfiles push origin main
 ```
 
-> :warning: The `dotfiles status` will show all the untracked files to disable this behavior 
+> :warning: The `dotfiles status` will show all the untracked files to disable this behavior do the following
 
 ```bash 
 # to remove the untracked directories and files from the listing
 dotfiles config --local status.showUntrackedFiles no 
 ```
 
-The great things about managing dotfiles with a git repo are
-- no prerequisite - only `git` required
+**The great things about managing dotfiles with a git repo are**
+- no prerequisite - only `git`
 - we can have multiple versions of our configs using `git commits/tags`
 - we can also create profiles with `git branch`.
 
@@ -73,9 +75,9 @@ The great things about managing dotfiles with a git repo are
 dotfiles checkout work # or any other branch name
 ```
 
-> :heavy_exclamation_mark:  Recommended Reading: [Tracking dotfiles with git]()
+> :heavy_exclamation_mark:  Recommended Reading: [Tracking dotfiles with git](https://www.atlassian.com/git/tutorials/dotfiles)
 
-**Automated installation**
+#### Automated installation
 
 The installation of apps, libraries and other tools are automated, open the `setup` file and update the following code according to your needs.
 
@@ -83,7 +85,7 @@ The installation of apps, libraries and other tools are automated, open the `set
 # Brew casks and binaries that needs to be installed
 bins = (
     "nvm"
-    "php"
+    "php@7.4"
     "composer"
     # more valid brew formula here
 )
@@ -101,45 +103,10 @@ After updating the `setup` file, just run the file in the terminal to install:
 ./setup
 ```
 
-:wine_glass: Voila! you are all set 
-
----
-
-Just to show you the gist of what this repository will achieve, below is how my terminal looks.
+:wine_glass: Voila! you are all set (in what 5 mins? cool isn't it?), Just to show you the gist of what the terminal looks
 
 ![terminal.png](/static/terminal.png)
-
----
 
 ### To start contributing to dotfiles
 
 Suggestions / Improvements or any other helpful trick is always welcome, Please raise a PR with some context or any helpful links.
-
-
-<!-----------------------------------------------------------------------------
-    Footer 
------------------------------------------------------------------------------->
-
-<div align="center">
-<br/>
-<br/>
-<!-- Mail to -->
-<a href="mailto:rec.manish.sahani@gmail.com">
-    <img width="25" src="https://img.icons8.com/material/120/000000/google-logo--v1.png"/>
-</a>
-
-<!-- Linkedin -->
-<a href="https://www.linkedin.com/in/manishsahani/">
-    <img width="25" src="https://img.icons8.com/ios-glyphs/120/000000/linkedin-circled.png"/>
-</a>
-
-<!-- Github -->
-<a href="https://github.com/kalkayan/">
-    <img width="25" src="https://img.icons8.com/material-sharp/120/000000/github.png"/>
-</a>
-
-<a href="https://open.spotify.com/user/sy6eqinfdpxilwe9si9vf0bxs">
-    <img width="25" src="https://img.icons8.com/fluent-systems-filled/48/000000/spotify.png"/>
-</a>
-
-</div>
