@@ -6,40 +6,47 @@
 
 I primarily use a 13' Macbook pro (named hades) for coding, this repository is the collection of configurations that I learned over time, I have also covered a in-depth tutorial for all these configuration.
 
-This repository is mainly applies to Mac based systems or Linux and improvements and contributions for other platforms are more then welcome, feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com).
-
-Just to show you the gist of what this repository will achieve, below is how my terminal looks.
-
-![terminal.png](/static/terminal.png)
+This repository is mainly applies to MacOS or Linux and improvements and contributions for other platforms are more then welcome, feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com).
 
 
 ### To start using these dotfiles
 
 If you want to give this a try, first fork the repository, **review the files and code** and **remove code that you don't need** ([see - Reviewing & editing code ]()).
 
-:warning: | Don't blindly use these settings unless you know what that entails.
-:---: | :---
+> :warning: Don't blindly use these settings unless you know what that entails.
 
-This repository container an bash script (`setup`) to install all the language supports (compilers and interpreters) and other tools & app via brew, not only this, the git repository can also act as a dotfiles manager if followed the instructions below.
+This repository container a bash script (`setup`) to automate the installation of all the binaries and brew casks, not only this, the repository also act as a dotfiles manager if followed the instructions below.
 
 **Managing & tracking [dot]files**
 
-The trick to manage these dotfiles is by creating a `bare` git repository ([read more about tracking dotfiles with git repo]()), to use this repository clone this as a `--bare` repository and just source the `.zshrc`, to clone this repository as a `--bare` run the following command in the terminal:
+The trick to manage these dotfiles is by creating a `bare` git repository ([read - Tracking dotfiles with git]()). To use this repository clone this as a `--bare` repository and just source the `.zshrc`, run the following command in the terminal:
 
 ```bash
+# after forking replace <username> with your username handle
 git clone --bare git@github.com:<username>/dotfiles.git $HOME/.dotfiles
+
+# you can also clone via https
+git clone --bare https://github.com/<username>/dotfiles.git $HOME/.dotfiles
 ````
 
-To use this `--bare` repository, first we need to define the `--work-tree` and `--git-dir`, for our convenience we can create an alias for this, stick the following line (if not already added) in your `.zshrc` or `.aliases`
+To use this `--bare` repository, we need to define the `--work-tree` (this can be your home directory i.e., `$HOME`) and `--git-dir` (where the repository is cloned - `$HOME/.dotfiles`), so the command to use the repository will be
+```bash
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME [command] [option]
+
+# example - to check the logs 
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME log
+```
+
+For our convenience we can create an alias for this, stick the following line (if not already present) in `.zshrc` or `.aliases`.
 
 ```bash
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
 ``` 
 
-now we can easily manage this `--bare` repo, for example:
+At this point all the files are being tracked, and we can easily use this `--bare` repository just by running `dotfiles`, ex :-
 
 ```bash
-# to check the status run
+# to check the status of the tracked and untracked files 
 dotfiles status
 
 # to add a file 
@@ -49,19 +56,28 @@ dotfiles add .tmux.conf
 dotfiles push origin main
 ```
 
-The cool thing about managing dotfiles with a git repo is that we can have multiple versions of our configs, and we can also create profiles with `branch`.
+> :warning: The `dotfiles status` will show all the untracked files to disable this behavior 
+
+```bash 
+# to remove the untracked directories and files from the listing
+dotfiles config --local status.showUntrackedFiles no 
+```
+
+The great things about managing dotfiles with a git repo are
+- no prerequisite - only `git` required
+- we can have multiple versions of our configs using `git commits/tags`
+- we can also create profiles with `git branch`.
 
 ```bash
-# Manage multiple profiles using git branch
-# branch out to your work env 
+# Manage multiple profiles - checkout out to the work profile 
 dotfiles checkout work # or any other branch name
 ```
 
-> Recommended Reading: [Tracking dotfiles with git]()
+> :heavy_exclamation_mark:  Recommended Reading: [Tracking dotfiles with git]()
 
-**For first time installation**
+**Automated installation**
 
-if you wish to automate the installation of libraries & apps and other tooling, open the `setup` file and update the code according to your needs.
+The installation of apps, libraries and other tools are automated, open the `setup` file and update the following code according to your needs.
 
 ```bash
 # Brew casks and binaries that needs to be installed
@@ -78,12 +94,22 @@ casks=(
 )
 ```
 
-After updating the `setup` file, run the following in the terminal to install:
+> :exclamation: you may need to add some post-installation code in the later part of scripts, please see the library installation page for the steps
+
+After updating the `setup` file, just run the file in the terminal to install:
 ```bash
 ./setup
 ```
 
-voila! you are all set with just two commands
+:wine_glass: Voila! you are all set 
+
+---
+
+Just to show you the gist of what this repository will achieve, below is how my terminal looks.
+
+![terminal.png](/static/terminal.png)
+
+---
 
 ### To start contributing to dotfiles
 
