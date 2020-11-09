@@ -10,6 +10,9 @@ bins=(
     "ripgrep"
     "fzf"
     "tmux"
+    "hugo"
+    "kubectl"
+    "minikube"
 )
 
 # Brew casks that needs to be installed
@@ -22,6 +25,8 @@ casks=(
     "visual-studio-code"
     "slack"
     "discord"
+    "tableplus"
+    "sequel-pro"
 )
 
 # =============================================================================

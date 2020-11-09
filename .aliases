@@ -11,13 +11,17 @@ alias .....="cd ../../../.."
 alias gdl="cd ~/Downloads"
 alias gc="cd ~/Code"
 alias gcpp="cd ~/Code/cpp"
+alias gelse="cd ~/Code/else"
 alias greact="cd ~/Code/react"
 alias gresearch="cd ~/Code/research"
 
 # General Shortcuts
 alias g=git
 alias vi=nvim
+alias k=kubectl
 
+alias clocal="conda activate local"
+alias cbase="conda activate base"
 # Directory listing
 # Thanks to mathiasbynens (https://github.com/mathiasbynens/dotfiles/blob/main/.aliases)
 # enables color in ls 
@@ -46,7 +50,7 @@ alias path='echo -e ${PATH//:/\\n}'
 # Shortcuts specific to my programs
 # covered is a short python script that created banners for the repositorie's
 # README.md (see example - https://raw.githubusercontent.com/kalkayan/dotfiles/main/static/banner.jpg)
-alias covered='python ${HOME}/Code/else/covered/__main__.py'
+alias covered='python ${HOME}/Code/else/divine/covered/__main__.py'
 
 # dotfiles manager 
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"

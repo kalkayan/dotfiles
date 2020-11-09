@@ -69,7 +69,7 @@ let mapleader=" "
 inoremap jk <ESC>
 
 " saving and quiting 
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :wa<CR>
 nnoremap <leader>q :q<CR>
 
 " Windows Splitting 
@@ -98,6 +98,7 @@ inoremap { {}<Esc>i
 inoremap [ []<ESC>i
 
 " NERDTree
+let NERDTreeShowHidden=1
 map <C-n> :NERDTreeToggle<CR>
 
 " FZF mappings 
