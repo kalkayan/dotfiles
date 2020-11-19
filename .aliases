@@ -6,8 +6,8 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# Goto navigations to some most common folders (these are specific to my laptop
-# only, you may need to modify this)
+# Goto navigations to some most common folders 
+# !! - these are specific to my laptop only, you may need to modify this)
 alias gdl="cd ~/Downloads"
 alias gc="cd ~/Code"
 alias gcpp="cd ~/Code/cpp"
@@ -17,11 +17,14 @@ alias gresearch="cd ~/Code/research"
 
 # General Shortcuts
 alias g=git
-alias vi=nvim
 alias k=kubectl
+alias p=python
+alias vi=nvim
 
+# Conda activation shortcuts
 alias clocal="conda activate local"
 alias cbase="conda activate base"
+
 # Directory listing
 # Thanks to mathiasbynens (https://github.com/mathiasbynens/dotfiles/blob/main/.aliases)
 # enables color in ls 
