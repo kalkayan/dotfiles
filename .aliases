@@ -15,7 +15,17 @@ alias gelse="cd ~/Code/else"
 alias greact="cd ~/Code/react"
 alias gresearch="cd ~/Code/research"
 
-# General Shortcuts
+# General Shortcuts 
+#
+# ----------------------------------------------------------------------------
+# Used keys
+#
+# - g = git
+# - k = kubectl 
+# - p = python
+# - l = ls 
+# - t = tmux
+# ----------------------------------------------------------------------------
 alias g=git
 alias k=kubectl
 alias p=python
@@ -53,8 +63,12 @@ alias path='echo -e ${PATH//:/\\n}'
 # Shortcuts specific to my programs
 # covered is a short python script that created banners for the repositorie's
 # README.md (see example - https://raw.githubusercontent.com/kalkayan/dotfiles/main/static/banner.jpg)
-alias covered='python ${HOME}/Code/else/divine/covered/__main__.py'
+alias covered='python ${HOME}/Code/kalkayan/auxilium/covered/__main__.py'
 
 # dotfiles manager 
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
+# tmux
+alias t=tmux
+alias tns='tmux new -s '
+alias tls='tmux ls'

@@ -22,4 +22,8 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # remove duplicates from the path
-export PATH=`awk -F: '{for(i=1;i<=NF;i++){if(!($i in a)){a[$i];printf s$i;s=":"}}}'<<<$PATH`;
+
+export GOPATH=$HOME/Code/go
+export GOROOT=/usr/local/go/
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin

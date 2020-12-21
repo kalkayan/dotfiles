@@ -27,7 +27,7 @@ unset __conda_setup
 # <<< conda init <<<
 
 # tmux autostart 
-if [ -z $TMUX ]; then; tmux; fi
+# if [ -z $TMUX ]; then; tmux; fi
 
 # FZF configs
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
