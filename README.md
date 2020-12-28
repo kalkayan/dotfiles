@@ -129,6 +129,8 @@ node bash nodesource_setup.sh
 sudo apt-get install nodejs
 curl -o- -L https://yarnpkg.com/install.sh | bash
 
+# Conda installation
+sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 
 ```
 
