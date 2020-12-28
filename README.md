@@ -2,9 +2,7 @@
 
 ![stability-wip](https://img.shields.io/badge/stability-stable-blue.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### Hades's Dotfiles 
-
-There is something fascinating about customizing your operating system through dotfiles, and there are tons of articles on what you can do with these dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work. I primarily use a 13' Macbook pro (named hades) for coding; therefore, this repository mainly applies to macOS, but Improvements or contributions are more than welcome. 
+There is something fascinating about customizing your operating system through dotfiles, and there are tons of articles on what you can do with these dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work. I primarily use a 13' Macbook pro (named hades) for coding and Ubuntu on AWS/GCP; therefore, this repository mainly applies to macOS and debians, but Improvements or contributions are more than welcome. 
 
 Feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/manishsahani).
 
@@ -110,6 +108,31 @@ After updating the `setup` file, just run the file in the terminal to install:
 :wine_glass: Voila! you are all set (in what 5 mins? cool isn't it?), Just to show you the gist of what the terminal looks
 
 ![terminal.png](/static/terminal.png)
+
+# Linux Setup
+The same repository stores the configuration for linux machine, just checkout to `linux` branch and include the `.bash_aliases` in the `.bashrc`.
+
+```bash
+# latest nvim installation
+sudo snap install nvim --classic
+
+# Plug Installation
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# Fzf Installation
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&  ~/.fzf/install
+
+# Install node and Yarn
+curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh 
+node bash nodesource_setup.sh 
+sudo apt-get install nodejs
+curl -o- -L https://yarnpkg.com/install.sh | bash
+
+
+```
+
+
 
 ### To start contributing to dotfiles
 
