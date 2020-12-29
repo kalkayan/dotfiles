@@ -20,6 +20,7 @@ set nowritebackup
 set incsearch
 set scrolloff=8
 set noshowmode
+set termguicolors
 
 " Natural Splitting of the windows
 set splitbelow
@@ -104,6 +105,7 @@ map <C-n> :NERDTreeToggle<CR>
 " FZF mappings 
 nnoremap <silent> <leader>ps :FZF<CR>
 nnoremap <silent> <leader>ws :FZF ~/Code<CR>
+
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.

@@ -70,5 +70,5 @@ alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 # tmux
 alias t=tmux
-alias tns='tmux new -s '
+alias tns='tmux -2 new -s '
 alias tls='tmux ls'
