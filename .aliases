@@ -20,6 +20,7 @@ alias gresearch="cd ~/Code/research"
 # ----------------------------------------------------------------------------
 # Used keys
 #
+# - c = copy
 # - g = git
 # - k = kubectl 
 # - p = python
@@ -51,8 +52,9 @@ alias la="ls -lAF ${colorflag}"
 alias lsd="ls -lAF ${colorflag} | grep --color=never '^d'" # List only dirs
 alias ls="command ls ${colorflag}"
 
-# Trim new lines and copy to clippboard
-alias c="tr -d '\n' | pbcopy"
+alias c="tr -d '\n' | pbcopy" # Trim new lines and copy to clippboard
+alias cc="pwd | c"  # copy current directory
+alias vc="cd $(pbpaste)"  # change to copied current directory
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
