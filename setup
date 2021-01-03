@@ -2,6 +2,8 @@
 
 # Brew binaries that will be installed
 bins=(
+    "coreutils"
+    "zsh"
     "php@7.4"
     "composer"
     "nvm"
@@ -10,10 +12,14 @@ bins=(
     "ripgrep"
     "fzf"
     "tmux"
-    "hugo"
     "kubectl"
     "minikube"
+    # Other useful binaries
+    "pv"
+    "tree"
+    "git-lfs"
 )
+
 
 # Brew casks that needs to be installed
 casks=(
@@ -30,44 +36,67 @@ casks=(
     "notion"
 )
 
-# =============================================================================
-# Language support - Compilers and Interpreters
-# =============================================================================
-# The first thing for the setup is to get the necessary language support, i.e.,
-# all the compilers and interpreters binaries, apples comes with a get utility 
-# called xcode-select (xcode command line tools) that has most of the compilers
-# below will check xcode command line tools is present or not, else install it.
-# =============================================================================
-if xcode-select -p 1>/dev/null 
-    then echo "xcode-command line tools already installed"
-    else xcode-select --install
-fi 
 
-# =============================================================================
-# System Package Manger - Homebrew
-# =============================================================================
-# The installation of libraries and apps should be simple and automated, 
-# Homebrew - The Missing Package Manager for MacOS is one popular choic. 
-# =============================================================================
+# ########################################################################## #
+#                   /!\ Compilers and Interpreters /!\                       #
+# ########################################################################## #
+#                                                                            #
+# The first thing for the setup is to get the necessary language support for #
+# the system i.e., all the compilers and interpreters binaries,  macos comes #
+# with xcode-select (xcode cli tools) that  has most  of the compilers below #
+# will check xcode command line tools is present, otherwise install it.      #
+#                                                                            #
+# ########################################################################## #
+if xcode-select -p 1>/dev/null
+then
+    echo "xcode-command line tools already installed"
+else
+    xcode-select --install
+fi
+
+
+# ########################################################################## #
+#                       /!\ System Package Manger  /!\                       #
+# ########################################################################## #
+#                                                                            #
+# brew - The Missing Package Manager for MacOS is one popular choice for mac #
+# package manager.                                                           #
+#                                                                            #
+# ########################################################################## #
 if brew -h 1>/dev/null
-    then echo "Brew.sh already installed."
-    else echo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi 
+then
+    echo "Brew.sh already installed."
+else
+    echo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
 
-# =============================================================================
-# Install brew binaries and casks
-# =============================================================================
-# This section installs all the binaries specified in the above bins array, do
-# not modify the code below.
-# =============================================================================
+# Update to latest brew version.
+brew update
+
+# Upgrade all the installed formula
+# brew upgrade
+
+BREW_PREFIX=$(brew --prefix)
+
+# ########################################################################## #
+#                          /!\ Binaries and Casks /!\                        #
+# ########################################################################## #
+#                                                                            #
+# This section deals with the installation of all the binaries and casks.    #
+#                                                                            #
+# ########################################################################## #
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+
 for binary in "${bins[@]}"
 do
     # get the name of the binary (ex- php in php@7.4)
     b=`echo $binary | cut -d \@ -f 1`
     # check if the binary is already present, otherwise install
     if brew list --formula | grep "$b" 1>/dev/null
-        then echo "$binary already installed"
-        else brew install "$binary"
+    then
+        echo "$binary already installed"
+    else
+        brew install "$binary"
     fi
 done
 
@@ -75,10 +104,20 @@ for c in "${casks[@]}"
 do
     # check is cask is present or not, if not install
     if brew list --cask | grep "$c" 1>/dev/null
-        then echo "$c is already installed"
-        else brew casks install "$c"
+    then
+        echo "$c is already installed"
+    else
+        brew casks install "$c"
     fi
 done
+
+# Changing default shell to brew zsh
+if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; 
+then
+  echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells;
+  chsh -s "${BREW_PREFIX}/bin/zsh";
+fi;
+
 
 # =============================================================================
 # Binary specific support

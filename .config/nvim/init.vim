@@ -71,6 +71,7 @@ inoremap jk <ESC>
 " saving and quiting 
 nnoremap <leader>w :wa<CR>
 nnoremap <leader>q :q<CR>
+" nnoremap <leader>ws :w !sudo tee % > /dev/null<CR>
 
 " Windows Splitting 
 nnoremap <leader>s :sp<CR>
@@ -103,7 +104,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 " FZF mappings 
 nnoremap <silent> <leader>ps :FZF<CR>
-nnoremap <silent> <leader>ws :FZF ~/Code<CR>
+nnoremap <silent> <leader>bs :FZF ~/<CR>
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
