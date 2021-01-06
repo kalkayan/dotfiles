@@ -119,12 +119,13 @@ then
 fi;
 
 
-# =============================================================================
-# Binary specific support
-# =============================================================================
-# Although brew has made the binary installation easy, but there might be cases
-# where you need to manually register some post-installation command.
-# =============================================================================
+# ########################################################################## #
+#                          /!\ Post Installation /!\                         #
+# ########################################################################## #
+#                                                                            #
+# This section deals with the setup of specific binaries after installation  #
+#                                                                            #
+# ########################################################################## #
 
 # Post-Installation for Node Version Manager (NVM)
 if [[ " ${bins[@]} " =~ " nvm " ]]; then
@@ -135,3 +136,5 @@ if [[ " ${bins[@]} " =~ " nvm " ]]; then
     nvm install --lts
     npm install -g npm yarn 
 fi
+
+brew cleanup
