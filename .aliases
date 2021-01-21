@@ -1,4 +1,32 @@
 #!/usr/bin/env zsh
+# MIT License
+#
+# Copyright (c) 2020 Manish Sahani
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# ########################################################################## #
+#                                /!\ Important /!\                           #
+# The file is used to as aliasing all the commands, this file is an for ease #
+# of user and not a core file for tooling, and has a dependency to .extra,   #
+# therefore, this should always be loader after .extra (preferably at last)  #
+# ########################################################################## #
 
 # Towared root navigations
 alias ..="cd .."
@@ -6,53 +34,24 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# Goto navigations to some most common folders 
-# !! - these are specific to my laptop only, you may need to modify this)
-alias gdl="cd ~/Downloads"
-alias gc="cd ~/Code"
-alias gcpp="cd ~/Code/cpp"
-alias gelse="cd ~/Code/else"
-alias greact="cd ~/Code/react"
-alias gresearch="cd ~/Code/research"
-
 # General Shortcuts 
-#
-# ----------------------------------------------------------------------------
-# Used keys
-#
-# - c = copy
-# - g = git
-# - k = kubectl 
-# - p = python
-# - l = ls 
-# - t = tmux
-# ----------------------------------------------------------------------------
 alias g=git
 alias k=kubectl
 alias p=python
 alias vi=nvim
+
+alias c="tr -d '\n' | pbcopy" # Trim new lines and copy to clippboard
 
 # Conda activation shortcuts
 alias clocal="conda activate local"
 alias cbase="conda activate base"
 
 # Directory listing
-# Thanks to mathiasbynens (https://github.com/mathiasbynens/dotfiles/blob/main/.aliases)
-# enables color in ls 
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
-	export LS_COLORS='no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
-else # macOS `ls`
-	colorflag="-G"
-	export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
-fi
-
 alias l="ls -lF ${colorflag}"
 alias la="ls -lAF ${colorflag}"
 alias lsd="ls -lAF ${colorflag} | grep --color=never '^d'" # List only dirs
 alias ls="command ls ${colorflag}"
 
-alias c="tr -d '\n' | pbcopy" # Trim new lines and copy to clippboard
 alias cc="pwd | c"  # copy current directory
 alias vc="cd $(pbpaste)"  # change to copied current directory
 
