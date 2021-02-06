@@ -28,10 +28,14 @@ declare -A navigations
 # this section is specific to my system, change the below as a ["key"]="value"
 # pairs and add your navigations.
 navigations=(
+    # System locations
+    ["downloads"]="/Users/hades/Downloads"
+    # Coding folders locations
+    ["kalkayan"]="/Users/hades/Code/kalkayan"
     ["code"]="/Users/hades/Code"
     ["cpp"]="/Users/hades/Code/cpp"
-    ["else"]="/Users/hades/code/else"
-    ["kalkayan"]="/Users/hades/kalkayan"
+    ["else"]="/Users/hades/Code/else"
+    ["go"]="/Users/hades/Code/go"
     ["react"]="/Users/hades/Code/react"
 )
 

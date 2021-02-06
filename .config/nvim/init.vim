@@ -4,22 +4,24 @@ syntax on
 " Basic config
 " -------------------------------------------------------------------------------
 set relativenumber
+set nu
 set hidden
 set guicursor=
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
+set nohlsearch
 set smartindent
-set nu
 set nowrap
-set smartcase
 set noswapfile
 set nobackup
 set nowritebackup
 set incsearch
 set scrolloff=8
 set noshowmode
+set signcolumn=yes
+set colorcolumn=80
 
 " Natural Splitting of the windows
 set splitbelow
@@ -40,7 +42,7 @@ set pyxversion=3
 filetype plugin on
 
 " -------------------------------------------------------------------------------
-" Pluggins 
+" Pluggins
 " -------------------------------------------------------------------------------
 " using vim plug as the package manager
 call plug#begin('~/.vim/plugged')
@@ -56,40 +58,40 @@ Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
-" Goodness 
+" Goodness
 colorscheme gruvbox
 
 " -------------------------------------------------------------------------------
 " Leader and basic mappings
 " -------------------------------------------------------------------------------
-" space is the leader key that I prefer 
+" space is the leader key that I prefer
 let mapleader=" "
 
-" For faster mode changing ESC is mapped t jk o 
+" For faster mode changing ESC is mapped t jk o
 inoremap jk <ESC>
 
-" saving and quiting 
+" saving and quiting
 nnoremap <leader>w :wa<CR>
 nnoremap <leader>q :q<CR>
 " nnoremap <leader>ws :w !sudo tee % > /dev/null<CR>
 
-" Windows Splitting 
+" Windows Splitting
 nnoremap <leader>s :sp<CR>
 nnoremap <leader>v :vsp<CR>
 
-" Movements around the windows 
+" Movements around the windows
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>r :wincmd r<CR> 
+nnoremap <leader>r :wincmd r<CR>
 
-" Resizing 
+" Resizing
 nnoremap <leader>+ :vertical resize +15<CR>
 nnoremap <leader>- :vertical resize -15<CR>
 
-" C++ Helpers for building 
-nnoremap <leader>b :w <BAR> :!g++ -std=c++17 -o ~/.hades/build %:p<CR> 
+" C++ Helpers for building
+nnoremap <leader>b :w <BAR> :!g++ -std=c++17 -o ~/.hades/build %:p<CR>
 
 " Automatically closing braces
 inoremap ( ()<ESC>i
@@ -102,9 +104,21 @@ inoremap [ []<ESC>i
 let NERDTreeShowHidden=1
 map <C-n> :NERDTreeToggle<CR>
 
-" FZF mappings 
+" FZF mappings
 nnoremap <silent> <leader>ps :FZF<CR>
 nnoremap <silent> <leader>bs :FZF ~/<CR>
+
+function! TrimWhitespace()
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
+endfunction
+
+augroup KALKAYAN
+  " taken from the fav ThePrimeagen
+  autocmd!
+  autocmd BufWritePre * :call TrimWhitespace()
+augroup END
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.

@@ -61,15 +61,21 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-# Shortcuts specific to my programs
-# covered is a short python script that created banners for the repositorie's
-# README.md (see example - https://raw.githubusercontent.com/kalkayan/dotfiles/main/static/banner.jpg)
-alias covered='python ${HOME}/Code/kalkayan/auxilium/covered/__main__.py'
-
-# dotfiles manager 
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+# refresh terminal
+alias so="source ~/.zshrc"
 
 # tmux
 alias t=tmux
 alias tns='tmux new -s '
 alias tls='tmux ls'
+
+
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
+#                      =*--  System Specific Aliases --*=                    #
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
+# covered (https://github.com/kalkayan/auxilium/tree/main/covered)
+alias covered='python ${HOME}/Code/kalkayan/auxilium/covered/__main__.py'
+alias comingsoon='python ${HOME}/Code/kalkayan/auxilium/comingsoon/__main__.py'
+
+# dotfiles (https://github.com/kalkayan/dotfiles) 
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"

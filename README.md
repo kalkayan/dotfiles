@@ -1,56 +1,56 @@
 ![banner.jpe](/static/banner.jpg)
 
-![stability-wip](https://img.shields.io/badge/stability-stable-blue.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-There is something fascinating about customizing your operating system through dotfiles, and there are tons of articles on what you can do with these dotfiles. These simple invisible files may seem pointless for a novice, but they become a swiss army knife if properly configured.
+There is something fascinating about customizing your operating system through dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work.
 
-This repository is the collection of configurations that I learned over time and still use for my daily work. I primarily use a 13' Macbook pro (named hades) and Ubuntu on AWS/GCP; therefore, this repository mainly applies to macOS and debians, but Improvements or contributions for other platforms are more than welcome. 
+***Recommended** reading about managing and sharing dotfiles elegently - [Necessay tooling made easy with .files](https://www.kalkayan.io/posts/tooling-with-dotfiles/)*
 
-This document mainly talks about a cool way to manage and share dotfiles across multiple surfaces (mac, ubuntu etc), Please star the repository if you find it useful.
+# Start using these dotfiles
 
-## Managing and tracking [dot]files
+First fork the repository, review the files and code, and remove code that you don't need. Every section of the code is properly documented, keep only that you need. Don't blindly use these settings unless you know what that entails.
 
-If you are new to this, you may want to read the article by atlassian. - [The best way to store your dotfiles: A bare Git repository ](https://www.atlassian.com/git/tutorials/dotfiles).
+> *If you wish to understand these configurations in depth, read - [hades configs]().*
 
-The trick to managing these dotfiles is by creating a [bare](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-init) git repository. So, If you want to start from zero configs follow the above article, otherwise if you want to use these dotfiles (**recommended**) follow the following steps.
-
-### To start using these dotfiles
-
-First fork the repository, **review the files and code**, and **remove code that you don't need**. :warning: Don't blindly use these settings unless you know what that entails.
+#### Clone your fork as a `bare` repository
 
 ```bash
 # after forking replace the <username> with your github handle
 git clone --bare https://github.com/<username>/dotfiles.git $HOME/.dotfiles
 ````
 
-> Notice the `--bare` flag, this the clones repository as a bare repository. Bare repository are special in a way that they omit working directory, therefore to use a bare repository, first we need to define the following.
-> - `--work-tree` - this can be your home directory, i.e., `$HOME` or `~`)
-> - `--git-dir` - where the repository is cloned - `$HOME/.dotfiles`
->
-> Therefore the command to use the repository will have a prefix `git --git-dir=$HOME/.dotfiles --work-tree=$HOME `, 
+Notice the `--bare` flag, this the clones repository as a bare repository. Bare repository are special in a way that they omit working directory, therefore to use a bare repository, first we need to define the following.
+- `--work-tree` - this can be your home directory, i.e., `$HOME` or `~`)
+- `--git-dir` - where the repository is cloned - `$HOME/.dotfiles`
 
-Now next step is to checkout to the proper branch according to the os of the machine.
+Therefore the command to use the repository will have a prefix `git --git-dir=$HOME/.dotfiles --work-tree=$HOME `. To make it easier to use, we alias this to dotfiles [like this](https://github.com/kalkayan/dotfiles/blob/main/.aliases#L70).
+
+#### Checkout to the proper branch
+
+The same repository is used across machine for storing the respective dotfiles. Checkout to the proper branch according to the os of your machine.
 ```bash
 # checkout to main for macos and linux for ubuntu.
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout main
 ```
 
-If you have a new machine or wants to install all your apps and libs, use the `setup` script to automate the installation - see the [Automated installation](#automated-installation) section for more info. Run the setup script 
+#### Run setup script
+
+If you have a new machine or wants to install your apps and libs, use the `setup` script to do an [Automated installation](#automated-installation).
 ```bash
 # this will install all your apps
 bash ~/setup
 ```
 
-Finally source the `.zshrc` or `.bashrc` by doing `source ~/.zshrc` and Voila! Thats it. You did it. 
+Finally source the `.zshrc` or `.bashrc` by doing `source ~/.zshrc` and Voila! Thats it. 
 
 > Yes all it takes is 3 steps to configure you new machine, Swiss army knife!
 
 
-### Usage of dotfiles
+# Usage of dotfiles
 
 This method of managing and sharing has various advantages some of them are shown below:
 
-**1. Keep the dofitles versioned, (basically all the cons of using git)**
+**1. Keep the dofitles versioned, (basically all the pros of using git)**
 At this point, all your configuration files are being tracked, and you can easily use the `dotfiles` command ([see this line in .aliases](https://github.com/kalkayan/dotfiles/blob/main/.aliases#L69)) to manage the repository, some examples are:-
 ```bash
 # to check the version history 
@@ -88,7 +88,7 @@ Create configs based on your environment using `branch`, create a branch and con
 dotfiles checkout work
 ```
 
-## Automated installation 
+# Automated installation 
 
 The repository comes with a bash script (`setup`) to automate the installation of all the binaries and applications. Depending on the platform the setup file will changes for example - for macos it uses `brew` and for ubuntu it uses `snap` or `apt-get`. In any case open the `setup` file and update the code according to your needs.
 
@@ -148,3 +148,7 @@ curl -o- -L https://yarnpkg.com/install.sh | bash
 Suggestions / Improvements or any other helpful trick is always welcome, Please raise a PR with some context or any helpful links.
 
 Feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/manishsahani).
+
+
+<!-- 
+> The article mainly applies to macOS and debians, but Improvements or contributions for other platforms are more than welcome.  -->
