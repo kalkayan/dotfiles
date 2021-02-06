@@ -10,7 +10,7 @@ There is something fascinating about customizing your operating system through d
 
 First fork the repository, review the files and code, and remove code that you don't need. Every section of the code is properly documented, keep only that you need. Don't blindly use these settings unless you know what that entails.
 
-> *If you wish to understand these configurations in depth, read - [hades configs]().*
+<!-- > *If you wish to understand these configurations in depth, read - [hades configs]().* -->
 
 #### Clone your fork as a `bare` repository
 
