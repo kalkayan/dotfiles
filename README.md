@@ -1,7 +1,5 @@
 ![banner.jpe](/static/banner.jpg)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 There is something fascinating about customizing your operating system through dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work.
 
 ***Recommended** reading about managing and sharing dotfiles elegently - [Necessay tooling made easy with .files](https://www.kalkayan.io/posts/tooling-with-dotfiles/)*
