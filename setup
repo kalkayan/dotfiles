@@ -12,12 +12,11 @@ bins=(
     "ripgrep"
     "fzf"
     "tmux"
-    "kubectl"
-    "minikube"
     # Other useful binaries
     "pv"
     "tree"
     "git-lfs"
+    "ccls"
 )
 
 
@@ -112,7 +111,7 @@ do
 done
 
 # Changing default shell to brew zsh
-if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; 
+if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells;
 then
   echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells;
   chsh -s "${BREW_PREFIX}/bin/zsh";
@@ -134,7 +133,7 @@ if [[ " ${bins[@]} " =~ " nvm " ]]; then
     [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
     # Install lts support for nodejs, yarn and update npm
     nvm install --lts
-    npm install -g npm yarn 
+    npm install -g npm yarn
 fi
 
 brew cleanup
