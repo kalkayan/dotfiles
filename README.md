@@ -90,6 +90,10 @@ dotfiles checkout work
 
 The repository comes with a bash script (`setup`) to automate the installation of all the binaries and applications. Depending on the platform the setup file will changes for example - for macos it uses `brew` and for ubuntu it uses `snap` or `apt-get`. In any case open the `setup` file and update the code according to your needs.
 
+```
+curl -fsSL https://raw.githubusercontent.com/kalkayan/dotfiles/main/setup | bash
+```
+
 ### Macos 
 
 Just add the bins to the `bins` array and brew `casks` to the `casks` array, the script will do all the installation with proper checking.
