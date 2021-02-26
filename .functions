@@ -1,4 +1,5 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+
 # MIT License
 #
 # Copyright (c) 2020 Manish Sahani
@@ -41,3 +42,8 @@ navigations=(
 
 # function to navigate faster to already specified directories
 function to() { cd "${navigations[$1]}"; }
+
+# Load nvm to the shell
+function sonvm() {
+    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+}
