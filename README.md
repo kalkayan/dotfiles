@@ -2,7 +2,7 @@
 
 There is something fascinating about customizing your operating system through dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work.
 
-***Recommended** reading about managing and sharing dotfiles elegently - [Necessay tooling made easy with .files](https://www.kalkayan.io/posts/tooling-with-dotfiles/)*
+***Recommended** reading about managing and sharing dotfiles elegently - [Setting up a Development Machine (Series of 3 parts)](https://www.kalkayan.io/posts/setting-up-a-development-machine-part-1/)*
 
 # Start using these dotfiles
 
@@ -89,6 +89,10 @@ dotfiles checkout work
 # Automated installation 
 
 The repository comes with a bash script (`setup`) to automate the installation of all the binaries and applications. Depending on the platform the setup file will changes for example - for macos it uses `brew` and for ubuntu it uses `snap` or `apt-get`. In any case open the `setup` file and update the code according to your needs.
+
+```
+curl -fsSL https://raw.githubusercontent.com/kalkayan/dotfiles/main/setup | bash
+```
 
 ### Macos 
 
