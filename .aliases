@@ -34,7 +34,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# General Shortcuts 
+# General Shortcuts
 alias g=git
 alias k=kubectl
 alias p=python
@@ -52,8 +52,7 @@ alias la="ls -lAF ${colorflag}"
 alias lsd="ls -lAF ${colorflag} | grep --color=never '^d'" # List only dirs
 alias ls="command ls ${colorflag}"
 
-alias cc="pwd | c"  # copy current directory
-alias vc="cd $(pbpaste)"  # change to copied current directory
+alias ccd="pwd | c"  # copy current directory
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
@@ -77,5 +76,5 @@ alias tls='tmux ls'
 alias covered='python ${HOME}/Code/kalkayan/auxilium/covered/__main__.py'
 alias comingsoon='python ${HOME}/Code/kalkayan/auxilium/comingsoon/__main__.py'
 
-# dotfiles (https://github.com/kalkayan/dotfiles) 
+# dotfiles (https://github.com/kalkayan/dotfiles)
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"

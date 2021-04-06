@@ -73,12 +73,12 @@ $DOTFILES pull origin $DF_BRANCH
 #                         /!\ Command Line tools  /!\                         #
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
 #                                                                             #
-#  Install macOS SDK, headers, and build tools such as the compilers - LLVM,  #
+#  Install macOS SDK, headers, build tools such as the compilers - LLVM,      #
 #  interpreters, and system package manager - Brew.sh.                        #
 #                                                                             #
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
 
-# Install Xcode-select (xcode command line tools) is not already installed
+# Install Xcode-select (xcode command line tools) if  not already installed
 if ! xcode-select -p 1>/dev/null; then
     xcode-select --install
 fi
