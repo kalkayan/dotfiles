@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # MIT License
 #
@@ -22,51 +22,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Brew Binaries - these are binaries that are available as brew formula. A list
-# of these formulas are stored in the bins.txt file under ~/.config/kalkayan
-# ~ Note ~ : this file is automatically updates with everytime brew installs or
-# removes a binary
-mapfile -t bins <  <(cat $HOME/.config/kalkayan/bins.txt)
 
-# Brew Casks - these are the casks that are available as brew formula. A list
-# of these casks are stored in the casks.txt under ~/.config/kalkayan folder.
-# ~ Note ~ : this file is automatically updates with everytime brew installs or
-# removes a casks
-mapfile -t casks < <(cat $HOME/.config/kalkayan/casks.txt)
+# Logging fuction helpers for the script, they take string as their first
+# argument and set and reset the colors of the terminal.
+# 	P_ :: (Primary logging)
+# 	S_ :: (Secondary logging)
+#   T_ :: (Tertirary logging)
+# the script is restricted to only three colors and the white colored output
+# are the commands output.
+function P_ () { echo -e "\033[36m$1\033[0m" }
+function S_ () { echo -e "\033[33m$1\033[0m" }
+function T_ () { echo -e "\033[92m$1\033[0m" }
 
 
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                          /!\ Install dotfiles /!\                           #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                                                                             #
-#  Elegant way to manage and share dotfiles across machines using a single    #
-#  git repository (see more ~ https://bit.ly/kalkayan-df)                     #
-#                                                                             #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+# Print the banner for the script stored in static/banner.txt (Big ASCII chars)
+P_ "$(<$HOME/static/banner.txt)\n"
 
-# The trick behind the mangement of dotfiles is cloning it as a bare repository
-# therefore, first, we need to define some arguments for the git command. The
-# location for the dotfiles is under $HOME directory.
-DOTFILES="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+# Print information about the project and efforts. Also share a link to the
+# documentation. Print them slowly with 0.4 sec delay between lines.
+while IFS= read -r l; do ; sleep 0.4 ; S_ $l ; done < $HOME/static/message.txt
 
-# Brachs gives us the functionality to create profiles of dotfiles for machines
-# main is for macos, linux is for ubuntu etc.
-DF_BRANCH="main"
 
-# Bring the dotfiles from hosted repository if not already present
-if [ ! -d "$HOME/.dotfiles" ]; then
-    /usr/bin/git clone --bare https://github.com/kalkayan/dotfiles.git $HOME/.dotfiles
-fi
+# Ask for sudo beforehand, so that the script doesn't halt installation in the
+# later sections.
+sudo -v
 
-# Reset the unstagged changes before updating (TODO: experiment with stash)
-if [[ " $@ " =~ " --dotfiles-reset " ]]; then
-    $DOTFILES reset --hard
-fi
-
-# Activate the profile for the current dev machine and Update the dotfiles with
-# remote repository
-$DOTFILES checkout $DF_BRANCH
-$DOTFILES pull origin $DF_BRANCH
+# Keep sudo session persistent, taken from -- https://gist.github.com/cowboy/3118588
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
@@ -78,18 +60,88 @@ $DOTFILES pull origin $DF_BRANCH
 #                                                                             #
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
 
+
 # Install Xcode-select (xcode command line tools) if  not already installed
-if ! xcode-select -p 1>/dev/null; then
+P_ "Verifying xcode command line tools installation"
+if ! xcode-select -p 2>/dev/null; then
+	# Install the xcode command line tools - xcode-select is the eaisest way.
+    P_ "Installing XCode Command Line tools using default xcode-select"
     xcode-select --install
+
+    # Wait for system to install the command line tools (this is to halt the
+    # script until tools aren't installed).
+    P_ "The Installation is currently in progress, Click Agree on the prompt."
+    while ! xcode-select -p 2>/dev/null; do ; sleep 5 ; done
+
+    # Verify the installation (the loop will only break when the path for the
+    # tools will be found, therefore, no extra verfication needed)
+    T_ "XCode Command line tools successfully installed."
 fi
 
 # Install brew.sh (system package manager) if already not installed
-if ! brew -h 1>/dev/null; then
-    echo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+P_ "Verifying homebrew installation and updating to the latest version"
+if ! brew -v 2>/dev/null; then
+	# Install homebrew using the method specified at https://brew.sh/
+	P_ "Installing Homebrew -- system package manager for macOS."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # Update brew to latest available version
 brew update
+
+
+# Update shell to latest zsh
+if [[ " $@ " =~ " --update-shell " ]]; then
+	P_ "Changing $SHELL to zsh"
+
+	# Install the latest zsh shell
+	brew install zsh
+
+	# Chanage the default shell to zsh installed by Homebrew (macos may ship with
+	# older version, therefore update the zsh)
+	BREW_PREFIX=$(brew --prefix)
+	if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then
+	  echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells;
+	  chsh -s "${BREW_PREFIX}/bin/zsh";
+	fi
+fi
+
+
+# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+#                          /!\ Install dotfiles /!\                           #
+# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+#                                                                             #
+#  Elegant way to manage and share dotfiles across machines using a single    #
+#  git repository (see more ~ https://bit.ly/kalkayan-df)                     #
+#                                                                             #
+# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+
+
+# The trick behind the mangement of dotfiles is cloning it as a bare repository
+# therefore, first, we need to define some arguments for the git command. The
+# location for the dotfiles is under $HOME directory.
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+
+# Brachs gives us the functionality to create profiles of dotfiles for machines
+# main is for macos, linux is for ubuntu etc.
+DF_BRANCH="main"
+
+# Bring the dotfiles from hosted repository if not already present
+if [ ! -d "$HOME/.dotfiles" ]; then
+    /usr/bin/git clone --bare https://github.com/kalkayan/dotfiles.git $HOME/.dotfiles
+fi
+
+
+# Reset the unstagged changes before updating (TODO: experiment with stash)
+if [[ " $@ " =~ " --dotfiles-reset " ]]; then
+    dotfiles reset --hard
+fi
+
+# Activate the profile for the current dev machine and Update the dotfiles with
+# remote repository
+dotfiles config status.showUntrackedFiles no
+dotfiles checkout $DF_BRANCH
+dotfiles pull origin $DF_BRANCH
 
 
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
@@ -100,10 +152,24 @@ brew update
 #                                                                             #
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
 
+
+# Brew Binaries - these are binaries that are available as brew formula. A list
+# of these formulas are stored in the bins.txt file under ~/.config/kalkayan
+# ~ Note ~ : this file is automatically updates with everytime brew installs or
+# removes a binary
+bins=( $(cut -d '=' -f1 $HOME/.config/kalkayan/bins.txt) )
+
+# Brew Casks - these are the casks that are available as brew formula. A list
+# of these casks are stored in the casks.txt under ~/.config/kalkayan folder.
+# ~ Note ~ : this file is automatically updates with everytime brew installs or
+# removes a casks
+casks=( $(cut -d '=' -f1 $HOME/.config/kalkayan/casks.txt) )
+
 # required to properly install coreutils
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 
 # Install binaries using Homebrew, iterate over bins array and install.
+P_ "Installing the following binaries $bins"
 for binary in "${bins[@]}"; do
     # split the brew formula into binary name and version of installation and
     # get the name of the binary (ex- php in php@7.4)
@@ -118,18 +184,10 @@ done
 for c in "${casks[@]}"; do
     # first, check if the cask is present or not, if not install
     if ! brew list --cask | grep "$c" 1>/dev/null; then
-        brew casks install "$c"
+        brew install --cask "$c"
     fi
+
 done
-
-# Chanage the default shell to zsh installed by Homebrew (macos may ship with
-# older version, therefore update the zsh)
-BREW_PREFIX=$(brew --prefix)
-
-if ! fgrep -q "${BREW_PREFIX}/bin/zsh" /etc/shells; then
-  echo "${BREW_PREFIX}/bin/zsh" | sudo tee -a /etc/shells;
-  chsh -s "${BREW_PREFIX}/bin/zsh";
-fi
 
 
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
@@ -148,6 +206,11 @@ if [[ " ${bins[@]} " =~ " nvm " ]]; then
     # Install lts support for nodejs, yarn and update npm
     nvm install --lts
     npm install -g npm yarn
+fi
+
+if [[ "${bins[@]} " =~ " neovim " ]]; then
+	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
 
 brew cleanup

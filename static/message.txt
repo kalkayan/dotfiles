@@ -1,0 +1,6 @@
+Setting up a new development machine was a long and painful process. Not Anymore!!
+This script helps you automate all your installation tasks and takes away the pain
+of visiting multiple websites.
+
+visit https://github.com/kalkayan/dotfiles for more information on usage or reach
+out to Manish Sahani <rec.manish.sahani@gmail.com>.
