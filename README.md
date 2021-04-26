@@ -1,10 +1,29 @@
-![banner.jpe](/static/banner.jpg)
+```bash
+: '
+                                       _       _    __ _ _
+                                      | |     | |  / _(_) |
+                                    __| | ___ | |_| |_ _| | ___  ___
+                                   / _` |/ _ \| __|  _| | |/ _ \/ __|
+                                  | (_| | (_) | |_| | | | |  __/\__ \
+                                   \__,_|\___/ \__|_| |_|_|\___||___/
+                                    --------------------------------
+                               swiss army knife of any software engineer
+                             ----------------------------------------------
+
+                     -----------------------------------------------------------------------
+                     This repository is the collection of configurations that I learned over
+                     time and still use for my  daily work. The repository contains  configs
+                     files for vim,  tmux and etc.  This reposiotry also contains a file for
+                     automating the setup of  your development machine by using xcode tools,
+                     brew.sh and kalkayan/dotfiles.
+                     -----------------------------------------------------------------------
+    
+'
+```
 
 There is something fascinating about customizing your operating system through dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work.
 
 ***Recommended** reading about managing and sharing dotfiles elegently - [Setting up a Development Machine (Series of 3 parts)](https://www.kalkayan.io/posts/setting-up-a-development-machine-part-1/)*
-
-![preview.png](/static/preview.png)
 
 # Start using these dotfiles
 
@@ -21,7 +40,7 @@ git clone --bare https://github.com/<username>/dotfiles.git $HOME/.dotfiles
 
 Notice the `--bare` flag, this the clones repository as a bare repository. Bare repository are special in a way that they omit working directory, therefore to use a bare repository, first we need to define the following.
 - `--work-tree` - this can be your home directory, i.e., `$HOME` or `~`)
-- `--git-dir` - where the repository is cloned - `$HOME/.dotfiles`
+- `--git-dir` - where the repository is cloned - `$HOME/.dotfiles` 
 
 Therefore the command to use the repository will have a prefix `git --git-dir=$HOME/.dotfiles --work-tree=$HOME `. To make it easier to use, we alias this to dotfiles [like this](https://github.com/kalkayan/dotfiles/blob/main/.aliases#L70).
 
