@@ -1,0 +1,41 @@
+{
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "js",
+        "json",
+        // javascript, javascriptreact for microsoft tsserver
+        "javascript",
+        "javascriptreact"
+    ],
+    "coc.preferences.formatOnTypeFiletypes": [
+        "css",
+        "js",
+        "jsx",
+        "json",
+        "javascript",
+        "javascriptreact"
+    ],
+    "prettier.tabWidth": 4,
+    "coc.preferences.snippets.enable": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "javascript.suggest.autoImports": true,
+    "javascript.suggest.names": true,
+    "javascript.suggest.completeFunctionCalls": true,
+    //"languageserver": {
+        //"bash": {
+            //"command": "bash-language-server",
+            //"args": [
+                //"start"
+            //],
+            //"filetypes": [
+                //"sh"
+            //],
+            //"ignoredRootPaths": [
+                //"~"
+            //]
+        //}
+    //}
+}

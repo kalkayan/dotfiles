@@ -21,7 +21,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 export EDITOR="/usr/local/bin/nvim"
 export NVM_DIR="$HOME/.nvm"
 
@@ -30,12 +29,13 @@ export CPPFLAGS="-I/usr/local/opt/llvm/include"
 
 # FZF exports
 export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendor,build,.Trash,Library,.clangd,__pycache__}"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendor,build,.Trash,Library,.clangd,__pycache__,.npm,.zsh_sessions,.vscode,.nvm,.dotfiles,Movies,.cache,.composer}"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Golang Paths
-export GOPATH=$HOME/Code/go
-export GOROOT=/usr/local/go/
+export GOPATH=$HOME/code/go
+export GOROOT="/usr/local/opt/go/libexec"
+#export GOROOT="$(brew --prefix golang)/libexec"
 
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"

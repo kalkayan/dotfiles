@@ -22,28 +22,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# navigations for the 'to' functionality created below, this is a faster navi-
-# gate to directory
-declare -A navigations
-
-# this section is specific to my system, change the below as a ["key"]="value"
-# pairs and add your navigations.
-navigations=(
-    # System locations
-    ["downloads"]="/Users/hades/Downloads"
-    # Coding folders locations
-    ["kalkayan"]="/Users/hades/Code/kalkayan"
-    ["code"]="/Users/hades/Code"
-    ["cpp"]="/Users/hades/Code/cpp"
-    ["else"]="/Users/hades/Code/else"
-    ["go"]="/Users/hades/Code/go"
-    ["react"]="/Users/hades/Code/react"
-)
-
-# function to navigate faster to already specified directories
-function to() { cd "${navigations[$1]}"; }
-
 # Load nvm to the shell
-function sonvm() {
+function sonvm {
     [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+}
+
+# Find the git branch
+function git_branch {
+    [ -d "$PWD/.git" ] && /usr/bin/git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/%F{2} (%f%F{11}\1%f%F{2})%f/'
 }

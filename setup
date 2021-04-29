@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# MIT License
+# MIT license
 #
 # Copyright (c) 2020 Manish Sahani
 #
@@ -23,13 +23,27 @@
 # SOFTWARE.
 
 
+: '
+                      _       _    __ _ _
+                     | |     | |  / _(_) |
+                   __| | ___ | |_| |_ _| | ___  ___
+                  / _` |/ _ \| __|  _| | |/ _ \/ __|
+                 | (_| | (_) | |_| | | | |  __/\__ \
+                  \__,_|\___/ \__|_| |_|_|\___||___/
+                   --------------------------------
+            Automatic setup script for kalkayan dotfiles
+            --------------------------------------------
+
+    -----------------------------------------------------------------------
+    This file is responsible  for automating the setup of  your development
+    machine(s). This script is tailored  to setup macos machines, by  using
+    xcode tools, brew.sh and kalkayan/dotfiles.
+
+'
+
+
 # Logging fuction helpers for the script, they take string as their first
 # argument and set and reset the colors of the terminal.
-# 	P_ :: (Primary logging)
-# 	S_ :: (Secondary logging)
-#   T_ :: (Tertirary logging)
-# the script is restricted to only three colors and the white colored output
-# are the commands output.
 function P_ () { echo -e "\033[36m$1\033[0m" }
 function S_ () { echo -e "\033[33m$1\033[0m" }
 function T_ () { echo -e "\033[92m$1\033[0m" }
@@ -50,6 +64,7 @@ sudo -v
 # Keep sudo session persistent, taken from -- https://gist.github.com/cowboy/3118588
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+[ ! -d $HOME/bin ] && mkdir $HOME/bin
 
 # :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
 #                         /!\ Command Line tools  /!\                         #
@@ -208,11 +223,14 @@ if [[ " ${bins[@]} " =~ " nvm " ]]; then
     npm install -g npm yarn
 fi
 
+if [[ "${bins[@]} " =~ " fzf " ]]; then
+    $(brew --prefix)/opt/fzf/install --all
+fi
+
 if [[ "${bins[@]} " =~ " neovim " ]]; then
 	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    vi +PlugInstall +qall
 fi
-
-brew cleanup
 
 [ -f ~/.zshrc ] && source ~/.zshrc

@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Thanks to mathiasbynens (https://github.com/mathiasbynens/dotfiles/blob/main/.aliases)
+
 # enables color in ls
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
@@ -32,4 +32,22 @@ else # macOS `ls`
 fi
 
 # Change the PROMPT style to something like | (base) hades in ~ >
-PROMPT='%F{208}%n%f in %F{226}%~%f > '
+export PROMPT='%F{8}[%f%F{37}%n%f%F{8}]%f %F{8}%~%f$(git_branch) %F{13}$%f '
+setopt promptsubst
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+

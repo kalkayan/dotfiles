@@ -73,8 +73,8 @@ alias tls='tmux ls'
 #                      =*--  System Specific Aliases --*=                    #
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
 # covered (https://github.com/kalkayan/auxilium/tree/main/covered)
-alias covered='python ${HOME}/Code/kalkayan/auxilium/covered/__main__.py'
-alias comingsoon='python ${HOME}/Code/kalkayan/auxilium/comingsoon/__main__.py'
+alias covered='p ${HOME}/code/tools/auxilium/covered/__main__.py'
+alias comingsoon='p ${HOME}/code/tools/auxilium/comingsoon/__main__.py'
 
 # dotfiles (https://github.com/kalkayan/dotfiles)
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
