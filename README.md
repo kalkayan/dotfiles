@@ -20,6 +20,7 @@
     
 '
 ```
+> I'm currently working on documenting this and creating an amazing development distribution, stay connected! thanks.
 
 There is something fascinating about customizing your operating system through dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work.
 
