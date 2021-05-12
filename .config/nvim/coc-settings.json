@@ -19,23 +19,25 @@
     "prettier.tabWidth": 4,
     "coc.preferences.snippets.enable": true,
     "emmet.includeLanguages": {
-        "javascript": "javascriptreact"
+        "javascript": "javascriptreact",
+        "jinja-html": "html"
     },
     "javascript.suggest.autoImports": true,
     "javascript.suggest.names": true,
     "javascript.suggest.completeFunctionCalls": true,
-    //"languageserver": {
-        //"bash": {
-            //"command": "bash-language-server",
-            //"args": [
-                //"start"
-            //],
-            //"filetypes": [
-                //"sh"
-            //],
-            //"ignoredRootPaths": [
-                //"~"
-            //]
-        //}
-    //}
+    "languageserver": {
+        /*"bash": {
+            "command": "bash-language-server",
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
+        }*/
+    },
+    "clangd.path": "/Users/ryotsu/.config/coc/extensions/coc-clangd-data/install/12.0.0/clangd_12.0.0/bin/clangd"
 }

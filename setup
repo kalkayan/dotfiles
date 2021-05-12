@@ -24,20 +24,17 @@
 
 
 : '
-                      _       _    __ _ _
-                     | |     | |  / _(_) |
-                   __| | ___ | |_| |_ _| | ___  ___
-                  / _` |/ _ \| __|  _| | |/ _ \/ __|
-                 | (_| | (_) | |_| | | | |  __/\__ \
-                  \__,_|\___/ \__|_| |_|_|\___||___/
-                   --------------------------------
-            Automatic setup script for kalkayan dotfiles
-            --------------------------------------------
 
-    -----------------------------------------------------------------------
-    This file is responsible  for automating the setup of  your development
-    machine(s). This script is tailored  to setup macos machines, by  using
-    xcode tools, brew.sh and kalkayan/dotfiles.
+       _       _    __ _ _
+    __| | ___ | |_ / _(_) | ___  ___
+   / _` |/ _ \| __| |_| | |/ _ \/ __|
+  | (_| | (_) | |_|  _| | |  __/\__ \
+   \__,_|\___/ \__|_| |_|_|\___||___/
+  -----------------------------------------
+  swiss army knife of any software engineer
+  -----------------------------------------
+  Delightful macos development distribution, this
+
 
 '
 
