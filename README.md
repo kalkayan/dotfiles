@@ -20,7 +20,6 @@
     
 '
 ```
-> I'm currently working on documenting this and creating an amazing development distribution, stay connected! thanks.
 
 There is something fascinating about customizing your operating system through dotfiles. This repository is the collection of configurations that I learned over time and still use for my daily work.
 
@@ -173,6 +172,7 @@ Suggestions / Improvements or any other helpful trick is always welcome, Please 
 
 Feel free to reach me out at [rec.manish.sahani@gmail.com](mailto:rec.manish.sahani@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/manishsahani).
 
+> I'm currently working on documenting this and creating an amazing development distribution, stay connected! thanks.
 
 <!-- 
 > The article mainly applies to macOS and debians, but Improvements or contributions for other platforms are more than welcome.  -->
