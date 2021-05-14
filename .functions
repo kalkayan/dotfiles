@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/usr/bin/env zsh
 # MIT License
 #
 # Copyright (c) 2020 Manish Sahani
@@ -30,4 +29,14 @@ function sonvm {
 # Find the git branch
 function git_branch {
     [ -d "$PWD/.git" ] && /usr/bin/git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/%F{2} (%f%F{11}\1%f%F{2})%f/'
+}
+
+function _resolve_fzf_colorscheme {
+    if [[ $TERM =~ "xterm-256color" ]]; then
+        echo "--color fg:7,bg:233,hl:103,fg+:222,bg+:234,hl+:104
+              --color info:183,prompt:110,spinner:107,pointer:167,marker:215"
+    else
+        echo "--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
+              --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54"
+    fi
 }

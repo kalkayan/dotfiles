@@ -27,13 +27,12 @@ export NVM_DIR="$HOME/.nvm"
 export LDFLAGS="-L/usr/local/opt/llvm/lib"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
 
-#--color=bg+:#3c3836,bg:#32302f,spinner:#fb4934,hl:#928374,fg:#ebdbb2,header:#928374,info:#8ec07c,pointer:#fb4934,marker:#fb4934,fg+:#ebdbb2,prompt:#fb4934,hl+:#fb4934 \
 # FZF exports
-export FZF_DEFAULT_OPTS="--ansi \
-                        --height=90% --info=inline --border \
-                        --margin=1 --padding=1 \
-                        --color 'fg:#665c54,fg+:#ebdbb2,hl:#fe8019,bg:#282828,bg+:#3c3836,preview-bg:#223344,border:#fbf1c7' \
-                        "
+export FZF_DEFAULT_OPTS="--ansi  --height=90% --info=inline --border \
+                         --margin=2 --padding=1  $(_resolve_fzf_colorscheme) "
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+'
 export FZF_COMPLETION_OPTS='--border --info=inline'
 #export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendor,build,.Trash,Library,.clangd,__pycache__,.npm,.zsh_sessions,.vscode,.nvm,.dotfiles,Movies,.cache,.composer}"'

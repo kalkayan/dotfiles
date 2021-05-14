@@ -21,9 +21,20 @@
 " OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 " WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 "
-" Author: Manish Sahani <rec.manish.sahani@gmail.com>
-" Description: Vimrc of Manish Sahani. To get started with this distribution,
-"              Please visit - "https://github.com/kalkayan/dotfiles"
+" Author:      Manish Sahani <rec.manish.sahani@gmail.com>
+" URL:         https://development.kalkayan.io (original project)
+"
+" Description: This vimrc is the part of kalkayan's development distribution
+"              created and maintained by "Manish Sahani". To get started with
+"              this distribution, Please use the the following resources:
+"
+"              [1] Original project - "https://development.kalkayan.io"
+"              [2] kalkayan's dotfiles - "https://github.com/kalkayan/dotfiles"
+"              [3] ...
+"
+"              For extensive availability of documentation and tricks, Please,
+"              append your url to the list.
+
 
 syntax on
 filetype plugin indent on
@@ -58,6 +69,7 @@ Plug 'pangloss/vim-javascript'                                    " │         
 Plug 'maxmellon/vim-jsx-pretty'                                   " │                 ││ Syntax support for JSX and TSX                        │
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }   " │                 ││ Syntax support for golang                             │
                                                                   " ╰─────────────────╯╰───────────────────────────────────────────────────────╯
+
 " /////////////////////////////////////////////////////////////////////////////
 " // Experimental Plugins
 " /////////////////////////////////////////////////////////////////////////////
@@ -69,6 +81,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }   " │         
 "Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 "Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -105,7 +118,7 @@ set colorcolumn=80                      " │ Highlight column after 80 width (f
 set splitbelow                          " │ Horizontal split will put the new window below the current                    │
 set splitright                          " │ Vertical split will put the new window to the right                           │
 set showcmd                             " │ Show command in the last line of the screen                                   │
-set updatetime=300                      " │ Having longer updatetime (default 4s) leads to noticeable delays              │
+set updatetime=100                      " │ Having longer updatetime (default 4s) leads to noticeable delays              │
 set shortmess+=c                        " │ Don't pass messages to ins-complete-menu (example XXX completion YYY)         │
 "set timeout                            " │ Nvim will wait for timeoutlen ms for follow up then it will timeout           │
 "set timeoutlen=300                     " │ Time in ms to wait for a mapped sequence to complete                          │
@@ -165,7 +178,7 @@ let mapleader=" "
 
 " PLUGIN: Gruvbox
 let g:gruvbox_contrast_dark='medium'
-let g:gruvbox_transparent_bg=1
+let g:gruvbox_transparent_bg=1                                      " Make the themes terminal transparent (not working in iterm)
 
 " PLUGIN: Airline - Tabline & statusbar configurations
 let g:airline#extensions#tabline#enabled = 1                        " Enables the airline based tabline (set this to 0 if you don't use tabs)
@@ -186,6 +199,9 @@ let g:NERDTreeIgnore = ['.git', 'node_modules', '__pycache__']      " Things to 
 let g:fzf_buffers_jump = 1                                          " Jump to the existing window if possible
 let g:fzf_preview_window = ['right:60%', 'ctrl-/']                  " Preview buffer on the right side of the window with 60% width
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }    " Fzf window layout configs for default search
+
+
+" Transparency
 
 " ESC is mapped to jk for faster mode changing. (<ESC> == <CTRL-[> == jk)
 inoremap jk <ESC>
@@ -220,6 +236,8 @@ nnoremap <leader>v :vsp<CR>
 " want to save and quit simultaneously use ZZ or quit without saving use ZQ.
 nnoremap <leader>w :wa<CR>
 nnoremap <leader>q :q<CR>
+nnoremap Q :qa!<CR>
+nnoremap WQ :wqa<CR>
 
 " PLUGIN:FZF (Remaps)
 nnoremap <leader>fb :Buffer       <CR>
@@ -235,38 +253,44 @@ map <C-f> :NERDTreeFind<CR>
 
 command! -bang                        EditVimrc            :vsplit <BAR> :e $MYVIMRC<CR>
 command! -bang                        Build                :w <BAR> :!g++ -std=c++17 -o %:p:h/build %:p
-command! -bang -nargs=? -complete=dir Files                call fzf#run({ 'sink': 'e', 'window': { 'width': 0.5, 'height': 0.4 } })
+command! -bang -nargs=? -complete=dir Files                call fzf#run(fzf#wrap({ 'dir': <q-args>, 'window': { 'width': 0.5, 'height': 0.4 } }))
 command! -bang -nargs=? -complete=dir PreviewFiles         call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-nmap <F8> :TagbarToggle<CR>
+"nmap <F8> :TagbarToggle<CR>
 
 
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfunction
+"function! TrimWhitespace()
+    "let l:save = winsaveview()
+    "keeppatterns %s/\s\+$//e
+    "call winrestview(l:save)
+"endfunction
 
 " command for using coc prettier
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+"command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Formatting command remaps for coc prettier
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"vmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup KALKAYAN
     autocmd!
-    autocmd VimEnter * NERDTree " open nerdtree when vim starts
-    autocmd VimEnter * wincmd p " switch back the focus to the previous window
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close the nerdtree window if nothing else is open
+    "autocmd VimEnter * NERDTree " open nerdtree when vim starts
+    "autocmd VimEnter * wincmd p " switch back the focus to the previous window
+    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close the nerdtree window if nothing else is open
 
     " File formatting related
-    autocmd BufWritePre * :call TrimWhitespace()
+    "autocmd BufWritePre * :call TrimWhitespace()
 
     "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1	" Support cursor change in neovim via vitality plugin
     ":autocmd InsertEnter * set cul
     ":autocmd InsertLeave * set nocul
     "set guicursor=a:blinkon1		" Blink cursor
+    
+    " Workaround for not working of gruvbox_transparent_bg in iterm
+    autocmd VimEnter * highlight Normal     ctermbg=NONE guibg=NONE
+                \ |    highlight LineNr     ctermbg=NONE guibg=NONE
+                \ |    highlight SignColumn ctermbg=NONE guibg=NONE
 augroup END
+
 let g:javascript_plugin_jsdoc = 1
 
 source $HOME/.config/nvim/lsp.vim
