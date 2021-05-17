@@ -168,6 +168,14 @@ bash nodesource_setup.sh && sudo apt-get install nodejs
 curl -o- -L https://yarnpkg.com/install.sh | bash
 ```
 
+## Preview
+
+<img width="1424" alt="Screenshot 2021-05-15 at 2 39 56 AM" src="https://user-images.githubusercontent.com/73003119/118331880-da40da00-b526-11eb-9979-98688604968f.png">
+
+
+
+
+
 ## Contributing to dotfiles
 
 Suggestions / Improvements or any other helpful trick is always welcome, Please raise a PR with some context or any helpful links.
