@@ -52,7 +52,7 @@ filetype plugin indent on
 call plug#begin('~/.vim/plugged')                                 " │ Pluggin         ││ Description                                           │
                                                                   " │─────────────────││───────────────────────────────────────────────────────│
 " Appearance                                                      " │                 ││                                                       │
-Plug 'morhetz/gruvbox'                                            " │ Gruvbox         ││ Retro groove color scheme for Vim    --> colorscheme  │
+Plug 'gruvbox-community/gruvbox'                                  " │ Gruvbox         ││ Retro groove color scheme for Vim    --> colorscheme  │
 Plug 'vim-airline/vim-airline'                                    " │ Airline         ││ Lean & mean status and tabline                        │
                                                                   " │                 ││                                                       │
 " Accessibility                                                   " │                 ││                                                       │
@@ -201,8 +201,6 @@ let g:fzf_preview_window = ['right:60%', 'ctrl-/']                  " Preview bu
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }    " Fzf window layout configs for default search
 
 
-" Transparency
-
 " ESC is mapped to jk for faster mode changing. (<ESC> == <CTRL-[> == jk)
 inoremap jk <ESC>
 
@@ -251,8 +249,13 @@ nnoremap <leader>fg :Rg           <CR>
 map <C-n> :NERDTreeToggle<CR>
 map <C-f> :NERDTreeFind<CR>
 
-command! -bang                        EditVimrc            :vsplit <BAR> :e $MYVIMRC<CR>
-command! -bang                        Build                :w <BAR> :!g++ -std=c++17 -o %:p:h/build %:p
+nnoremap <leader>ev :tabnew $MYVIMRC<CR>
+
+nnoremap <F8>   :Build<CR>
+nnoremap <F9>   :Run<CR>
+
+command! -bang                        Build                :w <BAR> :!g++ -std=c++11 -o %:p:h/build %:p
+command! -bang                        Run                  :!timeout 3 %:p:h/build < %:p:h/in.txt > %:p:h/out.txt
 command! -bang -nargs=? -complete=dir Files                call fzf#run(fzf#wrap({ 'dir': <q-args>, 'window': { 'width': 0.5, 'height': 0.4 } }))
 command! -bang -nargs=? -complete=dir PreviewFiles         call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 "nmap <F8> :TagbarToggle<CR>
@@ -275,7 +278,7 @@ augroup KALKAYAN
     autocmd!
     "autocmd VimEnter * NERDTree " open nerdtree when vim starts
     "autocmd VimEnter * wincmd p " switch back the focus to the previous window
-    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close the nerdtree window if nothing else is open
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close the nerdtree window if nothing else is open
 
     " File formatting related
     "autocmd BufWritePre * :call TrimWhitespace()
@@ -286,11 +289,12 @@ augroup KALKAYAN
     "set guicursor=a:blinkon1		" Blink cursor
     
     " Workaround for not working of gruvbox_transparent_bg in iterm
-    autocmd VimEnter * highlight Normal     ctermbg=NONE guibg=NONE
-                \ |    highlight LineNr     ctermbg=NONE guibg=NONE
-                \ |    highlight SignColumn ctermbg=NONE guibg=NONE
+    autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
+            \ |    highlight LineNr     ctermbg=NONE guibg=NONE
+            \ |    highlight SignColumn ctermbg=NONE guibg=NONE
 augroup END
 
 let g:javascript_plugin_jsdoc = 1
+
 
 source $HOME/.config/nvim/lsp.vim
