@@ -54,6 +54,7 @@ call plug#begin('~/.vim/plugged')                                 " │ Pluggin 
 " Appearance                                                      " │                 ││                                                       │
 Plug 'gruvbox-community/gruvbox'                                  " │ Gruvbox         ││ Retro groove color scheme for Vim    --> colorscheme  │
 Plug 'vim-airline/vim-airline'                                    " │ Airline         ││ Lean & mean status and tabline                        │
+Plug 'vim-airline/vim-airline-themes'
                                                                   " │                 ││                                                       │
 " Accessibility                                                   " │                 ││                                                       │
 Plug 'preservim/nerdtree'                                         " │ NERDTree        ││ Tree Explorer for vim                                 │
@@ -61,6 +62,7 @@ Plug 'preservim/nerdcommenter'                                    " │ NERDComm
 Plug 'tpope/vim-fugitive'                                         " │ Fugitive        ││ Premier vim plugin for Git                            │
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }               " │ Fzf             ││ Command line fuzzy finder for searching               │
 Plug 'junegunn/fzf.vim'                                           " │ Fzf             ││ Pre-defined fzf commands and configs                  │
+Plug 'mbbill/undotree'
                                                                   " │                 ││                                                       │
 " Language specific                                               " │                 ││                                                       │
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                   " │ Coc.nvim        ││ Senses for your vim, using language servers           │
@@ -75,13 +77,14 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }   " │         
 " /////////////////////////////////////////////////////////////////////////////
 
 " [Telescope]
-"Plug 'nvim-lua/popup.nvim'                                          " Required by nvim-telescope
-"Plug 'nvim-lua/plenary.nvim'                                        " Required by nvim-telescope
-"Plug 'nvim-telescope/telescope.nvim'                                " Fuzzy finding, filtering, preview and pick (this turned out to be slow)
+Plug 'nvim-lua/popup.nvim'                                          " Required by nvim-telescope
+Plug 'nvim-lua/plenary.nvim'                                        " Required by nvim-telescope
+Plug 'nvim-telescope/telescope.nvim'                                " Fuzzy finding, filtering, preview and pick (this turned out to be slow)
 "Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 "Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -130,13 +133,14 @@ set complete-=i                         " │ Scan current and included files wh
 set shiftround                          " │ Round indent to multiple of shiftwidth (CTRL-T and CTRL-D)                    │
 set lazyredraw                          " │                                                                               │
 set nostartofline                       " │ Keep the cursor on the same column                                            │
+"set termguicolors
                                         " ╰───────────────────────────────────────────────────────────────────────────────╯
 
 " Backup & history                      " ╭───────────────────────────────────────────────────────────────────────────────╮
 set hidden                              " │ Hide buffer instead of abandoning it when it is unloaded                      │
 set history=1000                        " │ Remember more commands in exec and search history                             │
 set undofile                            " │ Maintain undo history between sessions                                        │
-set undolevels=1000                     " │ Maximum number of changes that can be undone                                  │
+set undolevels=10000                    " │ Maximum number of changes that can be undone                                  │
 set undodir=~/.vim/undodir              " │ Override the default undo directory to ~/.vim/undodir                         │
 set nobackup                            " │ Don't keep backup files after the file is written                             │
 set nowritebackup                       " │ Don't create any backup if the file is overwritten                            │
@@ -159,6 +163,8 @@ set nohlsearch                          " │ Stop the highlighting after the se
 set ignorecase                          " │ Ignore case in search patterns                                                │
 set smartcase                           " │ Override ignorecase option if the pattern contains any uppercase letters      │
                                         " ╰───────────────────────────────────────────────────────────────────────────────╯
+
+set viminfo^=%                          " Remember info about open buffers on close
 
 "  _ __ ___ _ __ ___   __ _ _ __  ___
 " | '__/ _ \ '_ ` _ \ / _` | '_ \/ __|
@@ -193,13 +199,29 @@ let g:airline#extensions#fzf#enabled = 1
 " PLUGIN: NERDTree - Tree Explorer
 let g:NERDTreeShowHidden = 1                                        " Toggle this setting by pressing I in NERDTree window
 let g:NERDTreeAutoDeleteBuffer = 1                                  " Delete the NERDTree buffer when tree is closed
+let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['.git', 'node_modules', '__pycache__']      " Things to hide in Explorer
 
 " PLUGIN: Fzf
+let $FZF_DEFAULT_OPTS = '--margin=0 --padding=0'
 let g:fzf_buffers_jump = 1                                          " Jump to the existing window if possible
-let g:fzf_preview_window = ['right:60%', 'ctrl-/']                  " Preview buffer on the right side of the window with 60% width
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }    " Fzf window layout configs for default search
+let g:fzf_preview_window = ['right:50%,border-left', 'ctrl-/']                  " Preview buffer on the right side of the window with 60% width
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'Normal'} }    " Fzf window layout configs for default search
 
+let g:fzf_colors = {
+            \ 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'], 
+            \ 'hl':      ['fg', 'Comment'], 
+            \ 'fg+':     ['fg', 'IncSearch', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'Normal'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Normal'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 " ESC is mapped to jk for faster mode changing. (<ESC> == <CTRL-[> == jk)
 inoremap jk <ESC>
@@ -219,8 +241,8 @@ map <C-L> :tablast<CR>
 map <C-H> :tabfirst<CR>
 
 " Text Indentation, Don't exit from the visual mode when shifting text
-xmap <Tab> >gv
-xmap <S-Tab> <gv
+xmap > >gv
+xmap < <gv
 
 " Window Resizing, change the width of windows using {+, -}
 nnoremap + :vertical resize +2<CR>
@@ -232,7 +254,8 @@ nnoremap <leader>v :vsp<CR>
 
 " Buffer Save and Exit, Use these when you just want to save or quit.  When you
 " want to save and quit simultaneously use ZZ or quit without saving use ZQ.
-nnoremap <leader>w :wa<CR>
+nnoremap <leader>w :w!<CR>
+nnoremap <leader>W :wa!<CR>
 nnoremap <leader>q :q<CR>
 nnoremap Q :qa!<CR>
 nnoremap WQ :wqa<CR>
@@ -240,32 +263,42 @@ nnoremap WQ :wqa<CR>
 " PLUGIN:FZF (Remaps)
 nnoremap <leader>fb :Buffer       <CR>
 nnoremap <leader>ff :Files        <CR>
-nnoremap <leader>fp :PreviewFiles <CR>
+nnoremap <leader>fd :Dotfiles     <CR>
 nnoremap <leader>fg :Rg           <CR>
+nnoremap <leader>fc :Colors       <CR>
+nnoremap <leader>fm :Marks        <CR>
+nnoremap <leader>fw :Windows      <CR>
+nnoremap <leader>fh :History      <CR>
+nnoremap <leader>ch :lua require'telescope.builtin'.command_history(require('telescope.themes').get_dropdown({})) <CR>
 
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
+"" Close the current buffer
+nmap <Del> :bd<cr>
+nmap <s-Del> :bw<cr>
+
+"vnoremap <leader>p "_dP
 
 " NERDTree configurations
 map <C-n> :NERDTreeToggle<CR>
 map <C-f> :NERDTreeFind<CR>
 
 nnoremap <leader>ev :tabnew $MYVIMRC<CR>
+nnoremap <leader>es :tabnew $HOME/setup<CR>
 
-nnoremap <F8>   :Build<CR>
-nnoremap <F9>   :Run<CR>
+nnoremap <F8>   :w <BAR> :!g++ -std=c++11 -lm -O2 -o %:p:h/build %:p<CR>
+nnoremap <F9>   :!timeout 3 %:p:h/build < %:p:h/in.txt > %:p:h/out.txt<CR>
 
-command! -bang                        Build                :w <BAR> :!g++ -std=c++11 -o %:p:h/build %:p
-command! -bang                        Run                  :!timeout 3 %:p:h/build < %:p:h/in.txt > %:p:h/out.txt
-command! -bang -nargs=? -complete=dir Files                call fzf#run(fzf#wrap({ 'dir': <q-args>, 'window': { 'width': 0.5, 'height': 0.4 } }))
-command! -bang -nargs=? -complete=dir PreviewFiles         call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-"nmap <F8> :TagbarToggle<CR>
+let dotfiles = 'git --git-dir=$HOME/.dotfiles --work-tree=$HOME ls-tree --full-tree --name-only -r HEAD | sed "s,^,$HOME/,"'
 
+command! -bang -nargs=0                 Dotfiles             call fzf#run( fzf#wrap({ 'source': dotfiles , 'window': {'height': 0.3, 'width': 0.4 }}))
 
-"function! TrimWhitespace()
-    "let l:save = winsaveview()
-    "keeppatterns %s/\s\+$//e
-    "call winrestview(l:save)
-"endfunction
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
 
 " command for using coc prettier
 "command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -274,11 +307,25 @@ command! -bang -nargs=? -complete=dir PreviewFiles         call fzf#vim#files(<q
 "vmap <leader>f  <Plug>(coc-format-selected)
 "nmap <leader>f  <Plug>(coc-format-selected)
 
+"              _                           _     
+"             | |                         | |    
+"   __ _ _   _| |_ ___   ___ _ __ ___   __| |___ 
+"  / _` | | | | __/ _ \ / __| '_ ` _ \ / _` / __|
+" | (_| | |_| | || (_) | (__| | | | | | (_| \__ \
+"  \__,_|\__,_|\__\___/ \___|_| |_| |_|\__,_|___/
+" -----------------------------------------------
+" The power of 
+                                                
+
 augroup KALKAYAN
     autocmd!
-    "autocmd VimEnter * NERDTree " open nerdtree when vim starts
-    "autocmd VimEnter * wincmd p " switch back the focus to the previous window
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close the nerdtree window if nothing else is open
+    "autocmd VimEnter *.{c,cpp,go,py,js,ts} NERDTree " open nerdtree when vim starts
+    "autocmd VimEnter *.{c,cpp,go,py,js,ts} wincmd p " switch back the focus to the previous window
+    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close the nerdtree window if nothing else is open
+    "autocmd FileType nerdtree setlocal conceallevel=3
+                "\ | setlocal nocursorline
+                "\ | syntax match NERDTreeHideCWD #^[</].*$# conceal
+                "\ | setlocal concealcursor=n
 
     " File formatting related
     "autocmd BufWritePre * :call TrimWhitespace()
@@ -287,14 +334,34 @@ augroup KALKAYAN
     ":autocmd InsertEnter * set cul
     ":autocmd InsertLeave * set nocul
     "set guicursor=a:blinkon1		" Blink cursor
-    
+
     " Workaround for not working of gruvbox_transparent_bg in iterm
-    autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
-            \ |    highlight LineNr     ctermbg=NONE guibg=NONE
-            \ |    highlight SignColumn ctermbg=NONE guibg=NONE
+    "autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
+            "\ |    highlight LineNr     ctermbg=NONE guibg=NONE
+            "\ |    highlight SignColumn ctermbg=NONE guibg=NONE
+
 augroup END
+
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
+
+highlight LineNr ctermbg=NONE guibg=NONE
+highlight SignColumn ctermbg=NONE guibg=NONE
 
 let g:javascript_plugin_jsdoc = 1
 
+" Ignore files
+set wildignore+=**/.git/*
+set wildignore+=*.pyc
+set wildignore+=**/build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
 
 source $HOME/.config/nvim/lsp.vim
+
+" Credits
+" https://github.com/blayz3r/dotfiles/blob/master/_vimrc (return to last position)

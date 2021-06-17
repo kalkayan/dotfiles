@@ -23,36 +23,50 @@
 # SOFTWARE.
 
 
-: '
-
-       _       _    __ _ _
-    __| | ___ | |_ / _(_) | ___  ___
-   / _` |/ _ \| __| |_| | |/ _ \/ __|
-  | (_| | (_) | |_|  _| | |  __/\__ \
-   \__,_|\___/ \__|_| |_|_|\___||___/
-  -----------------------------------------
-  swiss army knife of any software engineer
-  -----------------------------------------
-  Delightful macos development distribution, this
+: "
 
 
+Author:      Manish Sahani <rec.manish.sahani@gmail.com>
+URL:         https://development.kalkayan.io (original project)
+
+Description: This script is a part of kalkayan's development distribution. The 
+             purpose of this script is to automate the setup related tasks. To 
+             get started with this distribution, Please use the the following 
+             resources:
+
+             [1] Original project - https://development.kalkayan.io
+             [2] kalkayan's dotfiles - https://github.com/kalkayan/dotfiles
+             [3] ...
+
+             For extensive availability of documentation and tricks, Please,
+             append your url to the list.
+"
+
+# Logging fuction helpers for the script (primary, secondary, tertiary)
+function __p () { echo -e "\033[36m$1\033[0m" }
+function __s () { echo -e "\033[33m$1\033[0m" }
+function __t () { echo -e "\033[92m$1\033[0m" }
+
+# Print the banner for the script stored in static/banner.txt 
+__p '
+                                           _               
+                                          | |              
+  _ __ ___   __ _  ___ ___  ___   ___  ___| |_ _   _ _ __  
+ | |_ ` _ \ / _` |/ __/ _ \/ __| / __|/ _ \ __| | | | |_ \ 
+ | | | | | | (_| | (_| (_) \__ \ \__ \  __/ |_| |_| | |_) |
+ |_| |_| |_|\__,_|\___\___/|___/ |___/\___|\__|\__,_| .__/ 
+                                                    | |    
+                                                    |_|    
 '
-
-
-# Logging fuction helpers for the script, they take string as their first
-# argument and set and reset the colors of the terminal.
-function P_ () { echo -e "\033[36m$1\033[0m" }
-function S_ () { echo -e "\033[33m$1\033[0m" }
-function T_ () { echo -e "\033[92m$1\033[0m" }
-
-
-# Print the banner for the script stored in static/banner.txt (Big ASCII chars)
-P_ "$(<$HOME/static/banner.txt)\n"
 
 # Print information about the project and efforts. Also share a link to the
 # documentation. Print them slowly with 0.4 sec delay between lines.
-while IFS= read -r l; do ; sleep 0.4 ; S_ $l ; done < $HOME/static/message.txt
+while IFS= read -r l; do ; sleep 0.2 ; __s $l ; done < $HOME/static/message.txt
 
+# //////////////////////////////////////////////////////////////////////////// #
+
+
+__t "\nEnter your password to begin with the installation\n"
 
 # Ask for sudo beforehand, so that the script doesn't halt installation in the
 # later sections.
@@ -61,40 +75,47 @@ sudo -v
 # Keep sudo session persistent, taken from -- https://gist.github.com/cowboy/3118588
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# Create bin directory in home
 [ ! -d $HOME/bin ] && mkdir $HOME/bin
 
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                         /!\ Command Line tools  /!\                         #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                                                                             #
-#  Install macOS SDK, headers, build tools such as the compilers - LLVM,      #
-#  interpreters, and system package manager - Brew.sh.                        #
-#                                                                             #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+
+__p '
+  ____        _ _     _   _              _     
+ |  _ \      (_) |   | | | |            | |    
+ | |_) |_   _ _| | __| | | |_ ___   ___ | |___ 
+ |  _ <| | | | | |/ _` | | __/ _ \ / _ \| / __|
+ | |_) | |_| | | | (_| | | || (_) | (_) | \__ \
+ |____/ \__,_|_|_|\__,_|  \__\___/ \___/|_|___/
+ ----------------------------------------------
+ Installing tools + libraries required for getting language support -- includes
+ MacOS SDK, C/C++ headers, Compilers (LLVM), Interpreters, and System package 
+ manager (homebrew).
+
+'
 
 
 # Install Xcode-select (xcode command line tools) if  not already installed
-P_ "Verifying xcode command line tools installation"
+__s "\nVerifying xcode command line tools installation"
 if ! xcode-select -p 2>/dev/null; then
 	# Install the xcode command line tools - xcode-select is the eaisest way.
-    P_ "Installing XCode Command Line tools using default xcode-select"
+    __s "Installing XCode Command Line tools using default xcode-select"
     xcode-select --install
 
     # Wait for system to install the command line tools (this is to halt the
     # script until tools aren't installed).
-    P_ "The Installation is currently in progress, Click Agree on the prompt."
+    __s "The Installation is currently in progress, Click Agree on the prompt."
     while ! xcode-select -p 2>/dev/null; do ; sleep 5 ; done
 
     # Verify the installation (the loop will only break when the path for the
     # tools will be found, therefore, no extra verfication needed)
-    T_ "XCode Command line tools successfully installed."
+    __t "XCode Command line tools successfully installed."
 fi
 
 # Install brew.sh (system package manager) if already not installed
-P_ "Verifying homebrew installation and updating to the latest version"
+__s "\nVerifying homebrew installation and updating to the latest version"
 if ! brew -v 2>/dev/null; then
 	# Install homebrew using the method specified at https://brew.sh/
-	P_ "Installing Homebrew -- system package manager for macOS."
+	__s "Installing Homebrew -- system package manager for macOS."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
@@ -104,7 +125,7 @@ brew update
 
 # Update shell to latest zsh
 if [[ " $@ " =~ " --update-shell " ]]; then
-	P_ "Changing $SHELL to zsh"
+	__s "Changing $SHELL to zsh"
 
 	# Install the latest zsh shell
 	brew install zsh
@@ -119,15 +140,17 @@ if [[ " $@ " =~ " --update-shell " ]]; then
 fi
 
 
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                          /!\ Install dotfiles /!\                           #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                                                                             #
-#  Elegant way to manage and share dotfiles across machines using a single    #
-#  git repository (see more ~ https://bit.ly/kalkayan-df)                     #
-#                                                                             #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-
+__p '
+  _____        _    __ _ _           
+ |  __ \      | |  / _(_) |          
+ | |  | | ___ | |_| |_ _| | ___  ___ 
+ | |  | |/ _ \| __|  _| | |/ _ \/ __|
+ | |__| | (_) | |_| | | | |  __/\__ \
+ |_____/ \___/ \__|_| |_|_|\___||___/
+ ------------------------------------
+ Elegant way to manage and share dotfiles across machines using a single git 
+ repository (see more ~ https://bit.ly/kalkayan-df)                     
+'
 
 # The trick behind the mangement of dotfiles is cloning it as a bare repository
 # therefore, first, we need to define some arguments for the git command. The
@@ -156,13 +179,17 @@ dotfiles checkout $DF_BRANCH
 dotfiles pull origin $DF_BRANCH
 
 
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                           /!\ Binaries and Casks /!\                        #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                                                                             #
-#  This section deals with the installation of all the binaries and casks.    #
-#                                                                             #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+__p '
+  ____  _                       _____          _        
+ |  _ \(_)             ___     / ____|        | |       
+ | |_) |_ _ __  ___   ( _ )   | |     __ _ ___| | _____ 
+ |  _ <| | |_ \/ __|  / _ \/\ | |    / _` / __| |/ / __|
+ | |_) | | | | \__ \ | (_>  < | |___| (_| \__ \   <\__ \
+ |____/|_|_| |_|___/  \___/\/  \_____\__,_|___/_|\_\___/
+                                                        
+ This section deals with the installation of all the binaries and casks.
+
+'
 
 
 # Brew Binaries - these are binaries that are available as brew formula. A list
@@ -201,14 +228,18 @@ for c in "${casks[@]}"; do
 
 done
 
+__p '
+  _____          _     _           _        _ _       _   _             
+ |  __ \        | |   (_)         | |      | | |     | | (_)            
+ | |__) |__  ___| |_   _ _ __  ___| |_ __ _| | | __ _| |_ _  ___  _ __  
+ |  ___/ _ \/ __| __| | | |_ \/ __| __/ _` | | |/ _` | __| |/ _ \| |_ \ 
+ | |  | (_) \__ \ |_  | | | | \__ \ || (_| | | | (_| | |_| | (_) | | | |
+ |_|   \___/|___/\__| |_|_| |_|___/\__\__,_|_|_|\__,_|\__|_|\___/|_| |_|
+                                                                        
+ This section deals with the setup of specific binaries after installation  
 
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                           /!\ Post Installation /!\                         #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
-#                                                                             #
-#  This section deals with the setup of specific binaries after installation  #
-#                                                                             #
-# :-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-: #
+'
+
 
 # Post-Installation for Node Version Manager (NVM)
 if [[ " ${bins[@]} " =~ " nvm " ]]; then

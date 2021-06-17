@@ -33,10 +33,10 @@ function git_branch {
 
 function _resolve_fzf_colorscheme {
     if [[ $TERM =~ "xterm-256color" ]]; then
-        echo "--color fg:7,bg:233,hl:103,fg+:222,bg+:234,hl+:104
-              --color info:183,prompt:110,spinner:107,pointer:167,marker:215"
+        echo "--color fg:223,bg:-1,hl:66,fg+:166,bg+:-1,hl+:208
+              --color info:183,prompt:110,spinner:107,pointer:167,marker:215,border:223"
     else
-        echo "--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
-              --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54"
+        echo "--color fg:#ebdbb2,bg:-1,hl:#458588,fg+:#d65d0e,bg+:-1,hl+:#fabd2f \
+              --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54,border:#ebdbb2"
     fi
 }

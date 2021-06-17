@@ -28,14 +28,13 @@ export LDFLAGS="-L/usr/local/opt/llvm/lib"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
 
 # FZF exports
-export FZF_DEFAULT_OPTS="--ansi  --height=90% --info=inline --border \
-                         --margin=2 --padding=1  $(_resolve_fzf_colorscheme) "
-
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-'
+export FZF_DEFAULT_OPTS="--ansi  --height=60% --info=inline --border \
+                         --margin=2 --padding=0  $(_resolve_fzf_colorscheme) "
+export BAT_THEME="gruvbox-dark"
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' '
 export FZF_COMPLETION_OPTS='--border --info=inline'
 #export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendor,build,.Trash,Library,.clangd,__pycache__,.npm,.zsh_sessions,.vscode,.nvm,.dotfiles,Movies,.cache,.composer}"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendor,build,.Trash,Library,.clangd,__pycache__,.npm,.zsh_sessions,.vscode,.nvm,.dotfiles,Movies,.cache,.composer,.local}"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Golang Paths

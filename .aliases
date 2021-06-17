@@ -68,13 +68,8 @@ alias t=tmux
 alias tns='tmux new -s '
 alias tls='tmux ls'
 
-
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
-#                      =*--  System Specific Aliases --*=                    #
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
-# covered (https://github.com/kalkayan/auxilium/tree/main/covered)
-alias covered='p ${HOME}/code/tools/auxilium/covered/__main__.py'
-alias comingsoon='p ${HOME}/code/tools/auxilium/comingsoon/__main__.py'
+alias f='fzf --height=90% --preview "bat --style=numbers --color=always --line-range :500 {}" --preview-window right,border-left  --padding=0'
+alias v='vi $(f)'
 
 # dotfiles (https://github.com/kalkayan/dotfiles)
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
