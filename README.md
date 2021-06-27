@@ -27,6 +27,8 @@ There is something fascinating about customizing your operating system through d
 
 ***Recommended** reading about managing and sharing dotfiles elegently - [Setting up a Development Machine (Series of 3 parts)](https://engineering.kalkayan.io/posts/setting-up-a-development-machine-part-3/)*
 
+HN Mentions - [A Way to Manage Dotfiles](https://news.ycombinator.com/item?id=27134249)
+
 # Start using these dotfiles
 
 First fork the repository, review the files and code, and remove code that you don't need. Every section of the code is properly documented, keep only that you need. Don't blindly use these settings unless you know what that entails.
