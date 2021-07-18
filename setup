@@ -61,7 +61,7 @@ __p '
 
 # Print information about the project and efforts. Also share a link to the
 # documentation. Print them slowly with 0.4 sec delay between lines.
-while IFS= read -r l; do ; sleep 0.2 ; __s $l ; done < $HOME/static/message.txt
+# while IFS= read -r l; do ; sleep 0.2 ; __s $l ; done < $HOME/static/message.txt
 
 # //////////////////////////////////////////////////////////////////////////// #
 
