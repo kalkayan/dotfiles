@@ -102,6 +102,8 @@ function setup_dotfiles () {
     # therefore, first, we need to define some arguments for the git command. The
     # location for the dotfiles is under $HOME directory.
     alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+    
+    alias
 
     # Bring the dotfiles from hosted repository if not already present
     if [ ! -d "$HOME/.dotfiles" ]; then
@@ -110,14 +112,14 @@ function setup_dotfiles () {
 
     # Reset the unstagged changes before updating (TODO: experiment with stash)
     if [[ " $@ " =~ " --dotfiles-reset " ]]; then
-        dotfiles reset --hard
+        /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset --hard
     fi
 
     # Activate the profile for the current dev machine and Update the dotfiles with
     # remote repository
-    dotfiles config status.showUntrackedFiles no
-    dotfiles checkout $VAR_DOTFILES_BRANCH
-    dotfiles pull origin $VAR_DOTFILES_BRANCH
+    /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME config status.showUntrackedFiles no
+    /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout $VAR_DOTFILES_BRANCH
+    /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME pull origin $VAR_DOTFILES_BRANCH
 }
 
 
@@ -158,6 +160,7 @@ function install_casks () {
 
     # Install casks using Homebrew, iterate over casks array and install.
     for c in "${casks[@]}"; do
+        print $PRIMARY "$c"
         # first, check if the cask is present or not, if not install
         if ! brew list --cask | grep "$c" 1>/dev/null; then
             brew install --cask "$c"
