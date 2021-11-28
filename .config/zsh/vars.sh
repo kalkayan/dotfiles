@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PRIMARY='\033[36m'
 SECONDARY='\033[33m'
 TERTIARY='\033[92m'
@@ -17,16 +19,3 @@ OPT_INSTALL_CASKS='--install-casks'
 OPT_UPDATE_SHELL='--update-shell'
 OPT_WITH_DOTFILES='--with-dotfiles'
 OPT_INSTALL_BUILDTOOLS='--install-buildtools'
-
-
-
-
-
-
-
-
-
-
-
-
-

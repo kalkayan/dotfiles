@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # MIT license
 #
 # Copyright (c) 2020 Manish Sahani
@@ -67,7 +69,7 @@ function print_help () {
 function print_banner () {
     # Print information about the project and efforts. Also share a link to the
     # documentation. Print them slowly with 0.4 sec delay between lines.
-    while IFS= read -r l; do ; sleep 0.2 ; print $SECONDARY $l ; done < $HOME/static/message.txt
+    print $SECONDARY  "$(cat $HOME/static/message.txt)"
 }
 
 
