@@ -33,7 +33,7 @@ Description: This script is a part of kalkayan's development distribution. The
              get started with this distribution, Please use the the following 
              resources:
 
-             [1] Original project - https://development.kalkayan.io
+             [1] Original project - https://zsh.kalkayan.io
              [2] kalkayan's dotfiles - https://github.com/kalkayan/dotfiles
              [3] ...
 
@@ -53,6 +53,7 @@ Description: This script is a part of kalkayan's development distribution. The
                                   || source /dev/stdin <<< "$(curl https://raw.githubusercontent.com/kalkayan/dotfiles/main/.config/zsh/utils.sh)"
 
 
+# Print the script banner
 print $PRIMARY '
                                            _               
                                           | |              
@@ -64,52 +65,51 @@ print $PRIMARY '
                                                     |_|    
 '
 
+
 # Check if help option is present in the provided arguments, if so print the 
 # usage and available option and exit otherwise proceed with the script
-[[ "$@" =~ "--help" ]] && print_help || print_banner
+[[ "$@" =~ "$OPT_HELP" ]] && print_help || print_banner && ask_password
 
 
-
-# Install Xcode-select (xcode command line tools) if  not already installed
-[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BUILDTOOLS" ]] && install_xcode
-
-
-# Install brew.sh (system package manager) if already not installed
-[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BREW"  ]] && install_brew
+# Install Xcode command line tool using xcode-select if already not installed.
+# Xcode cli tool brings all the necessary language packs and other build tool.
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BUILDTOOLS" ]] && \
+    install_xcode
 
 
-# Update shell to latest zsh
-[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_UPDATE_SHELL"  ]] && update_shell
+# Install brew.sh (system package manager for your machine) if already not 
+# installed. This will be used to install other binaries and applications.
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BREW"  ]] && \
+    install_brew
 
 
-# Dotfiles lines was hear
-[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_WITH_DOTFILES" ]] && setup_dotfiles
+# MacOS does not come with the latest version of zsh, update the zsh to its
+# latest version and set the current shell to zsh
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_UPDATE_SHELL"  ]] && \
+    update_shell
 
 
-#
-[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BINS"  ]] && install_bins $VAR_BREW_BINS
+# Bring in the dotfiles if not present or sync them with the remote repository.
+# This repository is the collection of configurations for better productivity.
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_WITH_DOTFILES" ]] && \
+    setup_dotfiles
 
 
-#
-[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_CASKS" ]] && install_casks $VAR_BREW_CASKS
+# Install binaries using brew from the bins.txt
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BINS"  ]] && \
+    install_bins $VAR_BREW_BINS
 
 
-exit
+# Install applications/casks using brew from the casks.txt
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_CASKS" ]] && \
+    install_casks $VAR_BREW_CASKS
 
 
+# Post-Installation deals with the setup of specific binaries after 
+# installation.
+[[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BINS"  ]] && \
+    . $HOME/.config/zsh/post_installation.sh
 
 
-
-
-
-if [[ "${bins[@]} " =~ " fzf " ]]; then
-    $(brew --prefix)/opt/fzf/install --all
-fi
-
-if [[ "${bins[@]} " =~ " neovim " ]]; then
-	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    vi +PlugInstall +qall
-fi
-
-[ -f ~/.zshrc ] && source ~/.zshrc
+# 
+[ -f $HOME/.zshrc ] && source $HOME/.zshrc

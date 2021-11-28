@@ -8,7 +8,6 @@ VAR_DOTFILES_BRANCH="main"
 VAR_BREW_BINS=( $(cut -d '=' -f1 $HOME/.config/brew/bins.txt) )
 VAR_BREW_CASKS=( $(cut -d '=' -f1 $HOME/.config/brew/casks.txt) )
 
-echo "$VAR_BREW_CASKS"
 
 OPT_HELP='--help'
 OPT_SETUP_NEW='--new-machine'

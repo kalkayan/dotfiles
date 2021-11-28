@@ -1,3 +1,26 @@
+# MIT license
+#
+# Copyright (c) 2020 Manish Sahani
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
 # Log
 function print () {
     [ $# -eq 2 ] && echo -e "$1$2\033[0m" || echo "$1"
@@ -38,8 +61,6 @@ function print_help () {
     print "  $OPT_INSTALL_CASKS        Install the casks specified in casks.txt using brew"
 
     exit
-
-
 }
 
 
@@ -49,16 +70,10 @@ function print_banner () {
     while IFS= read -r l; do ; sleep 0.2 ; print $SECONDARY $l ; done < $HOME/static/message.txt
 }
 
-function install_brew () {
-    if ! brew -v 2>/dev/null; then
-        print $SECONDARY "\nVerifying homebrew installation and updating to the latest version"
-        # Install homebrew using the method specified at https://brew.sh/
-        print $SECONDARY "Installing Homebrew -- system package manager for macOS."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    fi
 
-    # Update brew to latest available version
-    brew update
+function install_brew () {
+    [ ! -f "`which brew`" ] && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" \
+                            || brew update && print $SECONDARY "$(brew --version | head -1) is already installed."
 }
 
 
@@ -78,6 +93,7 @@ function update_shell () {
         fi
     fi
 }
+
 
 function setup_dotfiles () {
     # The trick behind the mangement of dotfiles is cloning it as a bare repository
