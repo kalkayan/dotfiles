@@ -1,0 +1,10 @@
+firefox
+adobe-acrobat-reader
+whatsapp
+slack
+vlc
+notion
+sublime-text
+postman
+tableplus
+discord
