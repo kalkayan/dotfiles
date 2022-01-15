@@ -32,22 +32,6 @@ else # macOS `ls`
 fi
 
 # Change the PROMPT style to something like | (base) hades in ~ >
-export PROMPT='%F{8}[%f%F{37}%n%f%F{8}]%f %F{8}%~%f$(git_branch) %F{13}$%f '
-#setopt promptsubst
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/local/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
+export PROMPT='$(k__prompt_user_info) ~ %F{8}%2C%f $(k__prompt_git_info)$(k__prompt_check_node) %F{13}$%f '
+setopt promptsubst
 

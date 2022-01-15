@@ -111,5 +111,4 @@ print $PRIMARY '
     . $HOME/.config/zsh/post_installation.sh
 
 
-# 
-print $PRIMARY '[ -f $HOME/.zshrc ] && source $HOME/.zshrc'
+print $PRIMARY 'Run the following command to get the changes: [ -f $HOME/.zshrc ] && source $HOME/.zshrc'

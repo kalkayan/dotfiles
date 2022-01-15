@@ -62,13 +62,13 @@ Plug 'preservim/nerdcommenter'                                    " │ NERDComm
 Plug 'tpope/vim-fugitive'                                         " │ Fugitive        ││ Premier vim plugin for Git                            │
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }               " │ Fzf             ││ Command line fuzzy finder for searching               │
 Plug 'junegunn/fzf.vim'                                           " │ Fzf             ││ Pre-defined fzf commands and configs                  │
-Plug 'mbbill/undotree'
+"Plug 'mbbill/undotree'
                                                                   " │                 ││                                                       │
 " Language specific                                               " │                 ││                                                       │
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                   " │ Coc.nvim        ││ Senses for your vim, using language servers           │
-Plug 'kevinoid/vim-jsonc'                                         " │                 ││ Syntax support for JSON with C-style comments         │
-Plug 'pangloss/vim-javascript'                                    " │                 ││ Syntax support for Javascript and better highlighting │
-Plug 'maxmellon/vim-jsx-pretty'                                   " │                 ││ Syntax support for JSX and TSX                        │
+"Plug 'kevinoid/vim-jsonc'                                         " │                 ││ Syntax support for JSON with C-style comments         │
+"Plug 'pangloss/vim-javascript'                                    " │                 ││ Syntax support for Javascript and better highlighting │
+"Plug 'maxmellon/vim-jsx-pretty'                                   " │                 ││ Syntax support for JSX and TSX                        │
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }   " │                 ││ Syntax support for golang                             │
                                                                   " ╰─────────────────╯╰───────────────────────────────────────────────────────╯
 
@@ -77,9 +77,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }   " │         
 " /////////////////////////////////////////////////////////////////////////////
 
 " [Telescope]
-Plug 'nvim-lua/popup.nvim'                                          " Required by nvim-telescope
-Plug 'nvim-lua/plenary.nvim'                                        " Required by nvim-telescope
-Plug 'nvim-telescope/telescope.nvim'                                " Fuzzy finding, filtering, preview and pick (this turned out to be slow)
+"Plug 'nvim-lua/popup.nvim'                                          " Required by nvim-telescope
+"Plug 'nvim-lua/plenary.nvim'                                        " Required by nvim-telescope
+"Plug 'nvim-telescope/telescope.nvim'                                " Fuzzy finding, filtering, preview and pick (this turned out to be slow)
 "Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 "Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 

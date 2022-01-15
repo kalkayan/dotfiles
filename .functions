@@ -21,14 +21,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Load nvm to the shell
-function sonvm {
-    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+function k__helper_resolve_git_color {
+    [[ -n $(/usr/bin/git status -s) ]] && echo '9' || echo '10' # 9 for red color and 10 for green
+}
+
+function k__helper_is_git_repo {
+    /usr/bin/git rev-parse --is-inside-work-tree 2>/dev/null
+}
+
+function k__prompt_user_info {
+    echo '%F{37}%n%f'
+} 
+
+function k__prompt_check_node {
+    [ -d "node_modules" 2>/dev/null ] && [ "$(jq --help 2>/dev/null)" ] && echo " $(jq -r '.version' package.json)"
+}
+
+
+
+
+function get_git_info {
+    [ "$(/usr/bin/git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)" ] && \
+        /usr/bin/git rev-parse --abbrev-ref --symbolic-full-name @{u} || /usr/bin/git rev-parse --abbrev-ref HEAD
 }
 
 # Find the git branch
-function git_branch {
-    [ -d "$PWD/.git" ] && /usr/bin/git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/%F{2} (%f%F{11}\1%f%F{2})%f/'
+function k__prompt_git_info {
+    [ "$(k__helper_is_git_repo)" ] && echo "%F{7}(%F{$(k__helper_resolve_git_color)}$(get_git_info)%F{7})" || echo '' 
 }
 
 function _resolve_fzf_colorscheme {
@@ -40,3 +59,11 @@ function _resolve_fzf_colorscheme {
               --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54,border:#ebdbb2"
     fi
 }
+
+
+
+# Available functions
+
+#function mkd {
+    #mkdir $1 && cd $1
+#}

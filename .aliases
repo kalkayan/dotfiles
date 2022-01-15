@@ -63,6 +63,7 @@ alias path='echo -e ${PATH//:/\\n}'
 # refresh terminal
 alias so="source ~/.zshrc"
 
+
 # tmux
 alias t=tmux
 alias tns='tmux new -s '
