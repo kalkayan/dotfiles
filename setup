@@ -110,5 +110,4 @@ print $PRIMARY '
 [[ "$@" =~ "$OPT_SETUP_NEW" ]] || [[ "$@" =~ "$OPT_INSTALL_BINS"  ]] && \
     . $HOME/.config/zsh/post_installation.sh
 
-
 print $PRIMARY 'Run the following command to get the changes: [ -f $HOME/.zshrc ] && source $HOME/.zshrc'
