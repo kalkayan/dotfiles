@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-export EDITOR="/usr/local/bin/nvim"
+# export EDITOR="/usr/local/bin/nvim"
 export NVM_DIR="$HOME/.nvm"
 
 export LDFLAGS="-L/usr/local/opt/llvm/lib"
@@ -34,7 +34,7 @@ export BAT_THEME="gruvbox-dark"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' '
 export FZF_COMPLETION_OPTS='--border --info=inline'
 #export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendor,build,.Trash,Library,.clangd,__pycache__,.npm,.zsh_sessions,.vscode,.nvm,.dotfiles,Movies,.cache,.composer,.local}"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git,vendors,dist,build,.Trash,Library,.clangd,__pycache__,.npm,.zsh_sessions,.vscode,.nvm,.venv,.dotfiles,Movies,.cache,.composer,.local}"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Golang Paths

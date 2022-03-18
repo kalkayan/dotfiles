@@ -22,7 +22,8 @@
 # SOFTWARE.
 
 function k__helper_resolve_git_color {
-    [[ -n $(/usr/bin/git status -s) ]] && echo '9' || echo '10' # 9 for red color and 10 for green
+    #[[ -n $(/usr/bin/git status -s) ]] && echo '9' || echo '10' # 9 for red color and 10 for green
+    echo 10
 }
 
 function k__helper_is_git_repo {
@@ -42,7 +43,7 @@ function k__prompt_check_node {
 
 function get_git_info {
     [ "$(/usr/bin/git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)" ] && \
-        /usr/bin/git rev-parse --abbrev-ref --symbolic-full-name @{u} || /usr/bin/git rev-parse --abbrev-ref HEAD
+        /usr/bin/git rev-parse --abbrev-ref --symbolic-full-name @{u} || git rev-parse --abbrev-ref HEAD
 }
 
 # Find the git branch

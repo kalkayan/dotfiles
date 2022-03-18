@@ -98,22 +98,14 @@ function update_shell () {
 
 
 function setup_dotfiles () {
-    # The trick behind the mangement of dotfiles is cloning it as a bare repository
-    # therefore, first, we need to define some arguments for the git command. The
-    # location for the dotfiles is under $HOME directory.
-    alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-    
-    alias
-
     # Bring the dotfiles from hosted repository if not already present
-    if [ ! -d "$HOME/.dotfiles" ]; then
+    [ ! -d "$HOME/.dotfiles" ] && \
         /usr/bin/git clone --bare https://github.com/kalkayan/dotfiles.git $HOME/.dotfiles
-    fi
+
 
     # Reset the unstagged changes before updating (TODO: experiment with stash)
-    if [[ " $@ " =~ " --dotfiles-reset " ]]; then
+    [[ " $@ " =~ " --dotfiles-reset " ]] && \
         /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset --hard
-    fi
 
     # Activate the profile for the current dev machine and Update the dotfiles with
     # remote repository
@@ -146,6 +138,7 @@ function install_bins () {
     done
 }
 
+
 function install_casks () {
     # Brew Casks - these are the casks that are available as brew formula. A list
     # of these casks are stored in the casks.txt under ~/.config/kalkayan folder.
@@ -160,12 +153,8 @@ function install_casks () {
 
     # Install casks using Homebrew, iterate over casks array and install.
     for c in "${casks[@]}"; do
-        print $PRIMARY "$c"
-        # first, check if the cask is present or not, if not install
-        if ! brew list --cask | grep "$c" 1>/dev/null; then
-            brew install --cask "$c"
-        fi
-
+        [[ ! "$(brew list --cask | grep "$c")" ]] && \
+            print $SECONDARY "Installing $c" && brew install --cask "$c" 
     done
 
 }
