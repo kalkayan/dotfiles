@@ -34,14 +34,14 @@ You can either follow the above articles and install these using `git clone --ba
 
 ```
 # To install the dotfiles
-curl -fsSL https://sh.kalkayan.io/setup | zsh -s -- --with-dotfiles
+curl -fsSL https://raw.githubusercontent.com/kalkayan/dotfiles/main/setup | zsh -s -- --with-dotfiles
 ```
 
 Also, this repository provides you a neat way of setting up a new system with a single command, independent of any other softwares, run:
 
 ```
 # To setup a new machine from scratch
-curl -fsSL https://sh.kalkayan.io/setup | zsh -s -- --new-machine
+curl -fsSL https://raw.githubusercontent.com/kalkayan/dotfiles/main/setup | zsh -s -- --new-machine
 ```
 
 > If in case `https://sh.kalkayan.io/setup` is not available, please use the mirror `https://github.kalkayan.io/dotfiles/setup`.
