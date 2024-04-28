@@ -42,7 +42,7 @@ Description: This script is a part of kalkayan's development distribution. The
 "
 
 [ -f $HOME/.config/sh/core  ] && source $HOME/.config/sh/core \
-                              || source /dev/stdin <<< "$(curl https://sh.kalkayan.io/config/sh/core)"
+                              || source /dev/stdin <<< "$(curl https://raw.githubusercontent.com/kalkayan/dotfiles/main/.config/sh/core)"
 
 # Load the variables in the current from the local vars.sh file if present under
 # config otherwise read from the fallback file at github.
